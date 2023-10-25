@@ -19,7 +19,7 @@ const User = require("../user/User")
       type: Sequelize.STRING(14),
       allowNull: true
     },
-    'endereço': {
+    endereco: {
       type: Sequelize.STRING(255),
       allowNull: true
     },
@@ -59,7 +59,7 @@ const User = require("../user/User")
   });
 
 
-/*       Instrutor.sync({force: false}) 
- */   
+/*        Instrutor.sync({force: false}) 
+ */    
    module.exports = Instrutor
 

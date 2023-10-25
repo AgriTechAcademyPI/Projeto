@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const User = require("./User")
 const bcrypt = require("bcryptjs") 
+const Instrutor = require("../instrutor/Instrutor")
 
 router.get("/cadastro", (req, res) => {
     res.render("login/cadastro.ejs")
@@ -66,7 +67,22 @@ router.post("/autenticarLogin", (req, res) =>{
 })
 
 
-router
+
+router.get("/carregarPerfil", (req,res) =>{
+    if(req.session.user != undefined){
+        idUsuarioSession = req.session.user.id
+            User.findOne({where: {id: idUsuarioSession}}).then(usuario =>{
+                Instrutor.findOne({where: {idUsuario: idUsuarioSession}}).then(instrutor =>{
+                    res.render("perfil/perfil.ejs", {usuario: usuario, instrutor: instrutor})
+
+            
+                })
+        })
+                
+    }
+
+})
+
 
 
 

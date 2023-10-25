@@ -12,7 +12,7 @@ router.get("/cadastro/curso", (req,res) =>{
         Categoria.findAll().then(categorias =>{
             User.findOne({where: {id: idUsuarioSession}}).then(usuario =>{
                 Instrutor.findOne({where: {idUsuario: usuario.id}}).then(instrutor =>{
-    
+                    
                     res.render("curso/criarCurso.ejs", {usuario: usuario, instrutor: instrutor, categorias: categorias})
                 })
                 
