@@ -44,7 +44,7 @@ app.use("/", CursoController)
 
 
 app.get("/" , (req,res) =>{
-    res.render("index.ejs")
+    res.render("home/home.ejs")
 })
 
 
