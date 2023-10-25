@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../views/css.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <header id="header">
+        <div class="container">
+            
+            <div class="flex">
+
+                <a href="#"><i class="bi bi-0-circle"></i></a>
+
+                <nav>
+                    <ul>
+                        <li><a href="">Home</a></li>
+                        <li><a href="">Cursos</a></li>
+                        <li><a href="">Sobre</a></li>
+                        <li><a href="">Contato</a></li>
+                        <li><a href="">Serviços</a></li>
+
+                    </ul>
+
+                </nav>
+                <div class="login">
+                    <a href=""><button><span class="box">Login</span></button></a>
+                    <a href=""><button><span class="box">Cadastro</span></button></a>
+                </div>
+
+            </div>
+        </div>
+        
+    </header>
+    <section class="banner"><h1>Aprenda com <span>o Agro!</span></h1></section>
+    <script src="../views/menu.js"></script>
+    <div class="container">
+        <p class="textocont">Da Raiz à Colheita: Conhecimento que Passa de Geração em Geração</p>
+        <div class="quadrados">
+            <img class="drone" src="/SITE/imagens/Imagem do WhatsApp de 2023-09-14 à(s) 01.00 1drone.svg" alt="">
+            <p class="textocur">Curso Avançado de Drone Agrícola: Escaneamento para Plantio de Precisão</p>
+            <img class="setabaixo" src="/SITE/imagens/image 8imagem seta baixo.svg" alt="">
+        </div>
+        <div class="quadrados">
+            <img class="drone" src="/SITE/imagens/Imagem do WhatsApp de 2023-09-14 à(s) 01.01 1web.svg" alt="">
+            <p class="textocur">Curso de Semântica Aplicada à Tecnologia Agrícola</p>
+            <img class="setabaixo" src="/SITE/imagens/image 8imagem seta baixo.svg" alt="">
+        </div>
+        <img class="setadirei" src="/SITE/imagens/image 6seta dire.svg" alt="">
+    </div>
+
+
+    <!-- Conteúdo do site -->
+    <main>
+        <!-- O conteúdo do site vai aqui -->
+    </main>
+    <script>
+        var images = [,,]; // Substitua por suas imagens
+        var index = 0;
+        
+        setInterval(function() {
+            document.body.style.backgroundImage = 'url(' + images[index] + ')';
+            index = (index + 1) % images.length;
+        }, 180000); // Troca a imagem a cada 3 minutos
+
+    </script>
+</body>
+
+</html>
