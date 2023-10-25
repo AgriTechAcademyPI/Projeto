@@ -51,9 +51,10 @@ router.post("/autenticarLogin", (req, res) =>{
             if(validacaoDeSenha){
                  req.session.user = {
                     id: user.id,
-                    emai: user.email
+                    emai: user.email,
+                    nome: user.nomeUsuario
                 }
-                res.json(req.session.user) 
+                res.redirect("/")
             }else{
                 res.send("senha errada")
             }
@@ -62,6 +63,16 @@ router.post("/autenticarLogin", (req, res) =>{
         }
     })
 
+})
+
+
+router
+
+
+
+router.get("/logout", (req, res) => {
+    req.session.user = undefined
+    res.redirect("/")
 })
 
 module.exports = router;

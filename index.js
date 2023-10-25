@@ -4,6 +4,10 @@ const bodyParser = require("body-parser")
 const session = require("express-session")
 const connection = require("./database/connection")
 const UserController = require("./user/UserController")
+const InstrutorController = require("./instrutor/InstrutorController")
+const CursoController = require("./curso/CursoController")
+
+
 
 
 // view engine (para utilizar o ejs)
@@ -22,11 +26,9 @@ app.use(express.static("public"))
 //database connection
 
 app.use(session({
-    secret: 'your secret',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
+    secret: "fofinho", cookie: {maxAge: 100000000}
 }))
+
 
 connection
     .authenticate()
@@ -37,10 +39,12 @@ connection
     })
 
 app.use("/", UserController)
+app.use("/", InstrutorController)
+app.use("/", CursoController)
 
 
 app.get("/" , (req,res) =>{
-    res.render("index")
+    res.render("home/home.ejs")
 })
 
 
