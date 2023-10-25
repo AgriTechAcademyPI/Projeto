@@ -55,8 +55,10 @@ router.post("/cadastrarCurso", (req, res) =>{
 
 router.get("/assistir/curso/:nomeCurso", (req, res) =>{
     var nomeCurso = req.params.nomeCurso
-    
-    res.render("curso/assistirCurso.ejs")
+    Curso.findOne({where:{titulo: nomeCurso}}).then(curso =>{
+
+        res.render("curso/assistirCurso.ejs", {curso: curso})
+    })
 })
 
 
