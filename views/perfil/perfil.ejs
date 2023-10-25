@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+</head>
+<body>
+    <h1>Nome de Usuario</h1>
+    <h2><%= usuario.nomeUsuario%></h2>
+
+    <h1>Email do Usuario</h1>
+    <h2><%= usuario.email%></h2>
+
+    <%if(instrutor == undefined){%>
+
+    <a href="../instrutores/cadastroInstrutor.ejs">Ainda não é um instrutor? Clique e começe a dar aulas!!!</a>
+
+    <%}%>
+
+    <%if(instrutor != undefined){%>
+    <h1>Nome completo</h1>
+    <h2><%= instrutor.NomeCompleto%></h2>
+
+    <h1>celular</h1>
+    <h2><%= instrutor.celular%></h2>
+
+    <h1>Data de nascimento</h1>
+    <h2><%= instrutor.dataDeNascimento%></h2>
+
+    <h1>endereço</h1>
+    <h2><%= instrutor.endereco%></h2>
+
+    <h1>cpf</h1>
+    <h2><%= instrutor.cpf%></h2>
+
+    <%}%>
+
+</body>
+</html>

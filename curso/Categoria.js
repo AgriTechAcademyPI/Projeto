@@ -11,7 +11,7 @@ const Categoria = connection.define('categorias', {
     }
 })
 
-/*    Categoria.sync({force: true}) 
- */ 
+/*     Categoria.sync({force: false}) 
+ */  
 
 module.exports = Categoria

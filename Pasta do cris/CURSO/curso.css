@@ -1,0 +1,151 @@
+nav {
+    display: flex;
+}
+.home:focus, .cursos:focus, .sobre:focus, .contatos:focus, .servicos:focus {
+    color:#FF9F1C;
+}
+header {
+    width: 1280px;
+    height: 94px;
+    flex-shrink: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Cairo', sans-serif
+}
+
+header img {
+    width: 78px;
+    height: 78px;
+    border-radius: 44px;
+    background: url('<path-to-image>'), lightgray 50% / cover no-repeat;
+}
+.home, .cursos, .sobre, .contatos, .servicos {
+    width: 96px;
+    height: 35px;
+    flex-shrink: 0;
+    color: #539B2D;
+    font-family: Cairo;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/* Botões de login e cadastro */
+.login{
+    width: 124px;
+    height: 39px;
+    flex-shrink: 0;
+    background: #FF9F1C;
+    color: #FFF;
+    text-align: center;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: none;
+}
+.cadastre-se{
+    display: flex;
+    width: 138px;
+    height: 39px;
+    background: #FF9F1C;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: Cairo;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: none;
+}
+body {
+    font-family: 'Cairo', sans-serif; /* Fonte do corpo do documento */
+    width: 1280px;
+    height: 832px;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 2s ease-in-out;
+}
+.container {
+    width: 1280px;
+    height: 324px;
+    flex-shrink: 0;
+    opacity: 0.85;
+    background: #FF9F1C;
+    margin: auto; /* Centraliza o container na página */
+    margin-top: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Cairo', sans-serif
+  }
+  header {
+    width: 1280px;
+    height: 94px;
+    flex-shrink: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Cairo', sans-serif
+}
+
+header img {
+    width: 78px;
+    height: 78px;
+    border-radius: 44px;
+    background: url('<path-to-image>'), lightgray 50% / cover no-repeat;
+}
+
+/* Títulos ao lado do logo */
+.titulo {
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo1, .titulo2 {
+    flex-shrink: 0;
+    font-family: 'Cairo', sans-serif;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+
+.titulo1 {
+    color: #539B2D;
+    width: 183px;
+    height: 83px;
+    
+}
+
+.titulo2 {
+    color: #FF9F1C;
+    width: 183px;
+    height: 83px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+}
+.container{
+    border-radius: 20px;
+    opacity: 0.85;
+    background: #FFF;
+    width: 1179px;
+    height: 662px;
+    flex-shrink: 0;
+}
+.textocurso{
+    color: #539B2D;
+    font-family: Cairo;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

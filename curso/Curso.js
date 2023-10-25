@@ -73,8 +73,8 @@ const Curso = connection.define('cursos', {
     ]
   });
 
-/*    Curso.sync({force: true})  
- */   
+/*     Curso.sync({force: false})  
+ */    
 
   module.exports = Curso
 
