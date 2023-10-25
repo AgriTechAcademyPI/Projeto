@@ -7,8 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Link de fonte apenas para Public Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;1,200;1,300;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 700;
+}
         body {
             margin: 0;
             padding: 0;
@@ -19,10 +26,12 @@
             align-items: center;
             justify-content: center;
         }
+        .caixaFormulario{
+            margin: 150px 0px 0px 60px;
+        }
 
         .rectangle {
-            /* width: 1226px;
-            height: 772px; */
+           
             width: 95vw;
             height: 95vh;
             border-radius: 65px;
@@ -30,14 +39,14 @@
             box-shadow: 0px 4px 50px 0px #000;
             display: flex;
             position: relative;
-            /* Adicionado para posicionar as imagens */
+            
         }
 
         .image-left {
             width: 50%;
             height: 100%;
             border-radius: 56px;
-            background: url('/SITE/imagens/trator\ horizonte\ 1trator.svg'), lightgray 50% / cover no-repeat;
+            background: url("../img/trator.svg"), lightgray 50% / cover no-repeat;
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -75,20 +84,16 @@
             margin-top: 30px;
             border: none;
             margin-bottom: 150px;
-
             /* Adicionado para estilizar o texto do botão */
             color: #000;
-            font-size: 32px;
+            font-size: 28px;
             font-style: normal;
-            font-weight: 400;
             line-height: normal;
-            -webkit-text-stroke: 0.5px white;
-
             /* Adicionado para centralizar o texto no botão */
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Public Sans', sans-serif;
+            font-weight: 400;
         }
 
         /* Adicionado para a imagem no canto superior direito */
@@ -99,7 +104,7 @@
             width: 128px;
             height: 128px;
             border-radius: 44px;
-            background: url('../img/LOGO.svg'), lightgray 50% / cover no-repeat;
+            background: url('../img/logo.svg'), lightgray 50% / cover no-repeat;
             margin-right: 17px;
             margin-top: 13px;
         }
@@ -181,12 +186,11 @@
         <div class="image-left"></div>
         <div class="top-right-image">
         </div> <!-- Adicionado a imagem no canto superior direito -->
-        <div class="bottom-right-image">
-            <img src="../img/image_2Duvidas-removebg-preview 1.svg" alt="">
-        </div> <!-- Adicionado a imagem no canto inferior direito -->
+      
 
         <form method="post" action="/autenticarLogin">
             <div class="login">LOGIN</div>
+            <div class="caixaFormulario">
             <div class="text-container">E-MAIL:</div>
             <input class="input-box" type="text" placeholder="@gmail.com" name="emailLogin">
             <div class="senha">SENHA:</div>
@@ -197,6 +201,7 @@
             </div>
             <!-- Fim do campo de senha com ícone de olho -->
             <button class="button" type="submit">ENTRAR</button>
+        </div>
         </form>
         </div>
         </div>

@@ -1,7 +1,6 @@
 const express = require("express")
 const router = express.Router()
 const Instrutor = require("./Instrutor")
-const idSessionUsuario = require("../middlewares/idSessionUsuario")
 const User = require("../user/User")
 
 router.get("/cadastro/instrutor", (req, res) =>{
