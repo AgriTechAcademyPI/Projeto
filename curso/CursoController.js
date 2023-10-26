@@ -56,8 +56,14 @@ router.post("/cadastrarCurso", (req, res) =>{
 router.get("/assistir/curso/:nomeCurso", (req, res) =>{
     var nomeCurso = req.params.nomeCurso
     Curso.findOne({where:{titulo: nomeCurso}}).then(curso =>{
+        Instrutor.findOne({where:{id:curso.idInstrutor}}).then(instrutor =>{
+            User.findOne({where:{id:instrutor.idUsuario}}).then(usuario =>{
+                Categoria.findOne({where:{id: curso.idCategoria}}).then(categoria =>{
+                    res.render("curso/assistirCurso.ejs", {curso: curso, instrutor:instrutor, usuario:usuario, categoria:categoria})
 
-        res.render("curso/assistirCurso.ejs", {curso: curso})
+                })
+            })
+        })
     })
 })
 
