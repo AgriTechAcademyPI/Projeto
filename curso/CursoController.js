@@ -67,6 +67,16 @@ router.get("/assistir/curso/:nomeCurso", (req, res) =>{
     })
 })
 
+router.get("/cursos", (req, res)=>{
+
+        Curso.findAll().then(cursos =>{
+            res.render("curso/listaCursos.ejs", {cursos: cursos})
+
+        })
+     
+
+})
+
 
 
 module.exports = router

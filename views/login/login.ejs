@@ -95,6 +95,49 @@
             align-items: center;
             font-weight: 400;
         }
+        .button {
+            width: 231px;
+            height: 76px;
+            border-radius: 26px;
+            background: #FF9F1C;
+            margin-left: 60px;
+            margin-top: 30px;
+            border: none;
+            margin-bottom: 150px;
+            /* Adicionado para estilizar o texto do botão */
+            color: #000;
+            font-size: 28px;
+            font-style: normal;
+            line-height: normal;
+            /* Adicionado para centralizar o texto no botão */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 400;
+        }
+        .button2 {
+            width: 231px;
+            height: 76px;
+            border-radius: 26px;
+            background: #FF9F1C;
+            margin-top: 30px;
+            border: none;
+            margin-bottom: 150px;
+            /* Adicionado para estilizar o texto do botão */
+            color: #000;
+            font-size: 28px;
+            font-style: normal;
+            line-height: normal;
+            /* Adicionado para centralizar o texto no botão */
+            display: inline;
+            justify-content: center;
+            align-items: center; 
+            font-weight: 400;
+            margin-left: 20px;
+            text-decoration: none;
+            padding:15px 0px 0px 27px;
+            
+        }
 
         /* Adicionado para a imagem no canto superior direito */
         .top-right-image {
@@ -173,7 +216,7 @@
         .olho {
             position: absolute;
             top: 50%;
-            right: 15px;
+            right: 70px;
             transform: translateY(-50%);
             cursor: pointer;
         }
@@ -199,8 +242,12 @@
                 <input class="caixa" type="password" id="senha" placeholder="*********" name="senhaLogin">
                 <span id="olho" class="olho" onclick="mostrarSenha()">&#128065;</span>
             </div>
-            <!-- Fim do campo de senha com ícone de olho -->
-            <button class="button" type="submit">ENTRAR</button>
+
+            <div style="display: flex;">
+                <button class="button" type="submit">ENTRAR</button>
+                <a class="button2"  href="/cadastro"> CADASTRAR</a> 
+             </div>
+            
         </div>
         </form>
         </div>

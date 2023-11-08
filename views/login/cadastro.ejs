@@ -4,11 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <!-- Link de fonte apenas para Public Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;1,200;1,300;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+    
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+    font-weight: 1000;
+    }   
         body {
             margin: 0;
             padding: 0;
@@ -37,7 +45,7 @@
             width: 50%;
             height: 100%;
             border-radius: 56px;
-            background: url('/SITE/imagens/operador_horizonte\ 1SENHOR\ TRATOR.svg'), lightgray 50% / cover no-repeat;
+            background: url("../img/trator2.svg"), lightgray 50% / cover no-repeat;
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -71,7 +79,7 @@
             height: 76px;
             border-radius: 26px;
             background: #FF9F1C;
-            margin-left: 190px;
+            margin-left: 30px;
             margin-top: 30px;
             border: none;
             margin-bottom: 150px;
@@ -85,11 +93,9 @@
             -webkit-text-stroke: 0.5px white;
 
             /* Adicionado para centralizar o texto no botão */
-            display: flex;
+            display: inline;
             justify-content: center;
             align-items: center;
-            font-family: 'Public Sans', sans-serif;
-
             
         }
 
@@ -101,7 +107,7 @@
             width: 128px;
             height: 128px;
             border-radius: 44px;
-            background: url('/SITE/imagens/Design\ sem\ nome\ \(10\)\ 1LOGO.svg'), lightgray 50% / cover no-repeat;
+            background: url('../img/logo.svg'), lightgray 50% / cover no-repeat;
             margin-right: 17px;
             margin-top: 13px;
         }
@@ -120,7 +126,6 @@
         
         .senha {
             color: #000;
-            font-family: 'Public Sans', sans-serif;
             font-size: 25px;
             -webkit-text-stroke: 0.3px white;
             /* largura e cor do stroke */
@@ -130,7 +135,6 @@
 
         .login {
             color: #000;
-            font-family: 'Public Sans', sans-serif;
             font-size: 36px;
             -webkit-text-stroke: 0.5px white;
             /* largura e cor do stroke */
@@ -151,17 +155,15 @@
             padding-left: 40px; /* Ajuste o espaçamento para acomodar a imagem */
         }
 
-        /* Adicione o estilo para o ícone do olho */
         .olho {
             position: absolute;
             top: 50%;
-            right: 15px;
+            right: 70px;
             transform: translateY(-50%);
             cursor: pointer;
         }
         .completo{
             color: #000;
-            font-family: 'Public Sans', sans-serif;
             font-size: 25px;
             -webkit-text-stroke: 0.3px white;
             /* largura e cor do stroke */
@@ -171,13 +173,23 @@
         }
         .confirme{
             color: #000;
-            font-family: 'Public Sans', sans-serif;
             font-size: 25px;
             -webkit-text-stroke: 0.3px white;
             /* largura e cor do stroke */
             margin-left: 160px;
             margin-top: 5px;
 
+        }
+        .form{
+            margin-left: 60px;
+        }
+        
+        .buttons{
+            display: flex;
+        }
+        .buttons a{
+            padding:15px 0px 0px 27px;
+            text-decoration: none;
         }
     </style>
 
@@ -191,7 +203,7 @@
         <div class="bottom-right-image">
             <img src="../imagens/image_2Duvidas-removebg-preview 1.svg" alt="">
         </div> <!-- Adicionado a imagem no canto inferior direito -->
-        <div>
+        <div class="form">
             <div class="login">CADASTRE SUA CONTA</div>
 
             <form action="/cadastrar/usuario" method="post">
@@ -207,9 +219,12 @@
                 <span id="olho" class="olho" onclick="mostrarSenha()">&#128065;</span>
             </div>
            
+            <div class="buttons">
                 <button class="button" type="submit">Cadastrar</button>
-               <a href="/login" class="button">Fazer Login </a>
-            
+                <a href="/login" class="button">Fazer Login </a>
+
+            </div>
+               
 
             </form>
         </div>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos Disponíveis</title>
+</head>
+<body>
+    <%cursos.forEach(curso => {%>
+        <h1><%= curso.titulo %></h1>
+        <h2><%= curso.descricao %></h2>
+        <h3><%= curso.preco %></h3>
+        <img src="<%=curso.imagemCurso%>" alt="">
+
+
+    <%})%>
+
+
+
+</body>
+</html>
