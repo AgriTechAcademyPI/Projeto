@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Instrutor</title>
     <style>
-       
-       @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-    *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins',sans-serif;
-    font-weight: 700;
-}
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
         body {
             background-color: rgb(150, 243, 150);
             display: flex;
@@ -62,32 +64,70 @@
         input[type="submit"]:hover {
             background-color: #cc7a19;
         }
-    .container{
-        width: 473px;
-        height: 695px;
-        flex-shrink: 0;
-        border-radius: 105px;
-        opacity: 0.85;
-        background: #FFF;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-        align-items: center;
-    }
+
+        .container {
+            width: 950px;
+            height: 695px;
+            flex-shrink: 0;
+            border-radius: 105px;
+            opacity: 0.85;
+            background: #FFF;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            align-items: center;
+        }
+
+        .nomes{
+            display: flex;
+        }
+
+        .contatos{
+            display: flex;
+        }
+
+        .nomes label, input{
+            margin-left: 15px;
+        }
+
+        .contatos label, input{
+            margin-left: 25px;
+        }
+
+
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1 >Cadastro para Instrutor</h1>
+        <h1>Cadastro para Instrutor</h1>
         <form action="/cadastrarInstrutor" method="post">
-            <label>Usuário:</label>
-            <input type="text" placeholder="<%= usuario.nomeUsuario %>" disabled>
-            <input type="text" value="<%= usuario.id %>" name="idUsuario" style="display: none;">
-            
-            <label>Nome Completo:</label>
-            <input type="text" placeholder="" value="" name="nomeInstrutor">
-            
-            <label>CPF:</label>
-            <input type="number" placeholder="123.243.434-56" value="" name="cpfInstrutor">
-            
+
+
+            <div class="nomes">
+
+                <label>Usuário:</label>
+                <input type="text" placeholder="<%= usuario.nomeUsuario %>" disabled>
+                <input type="text" value="<%= usuario.id %>" name="idUsuario" style="display: none;">
+
+                <label>Nome Completo:</label>
+                <input type="text" placeholder="" value="" name="nomeInstrutor">
+
+            </div>
+
+            <div class="contatos">
+                <label>CPF:</label>
+                <input type="number" placeholder="123.243.434-56" value="" name="cpfInstrutor">
+    
+                <label>Endereço:</label>
+                <input type="number" placeholder="Rua brasil 234" value="" name="enderecoInstrutor">
+            </div>
+           
+
+            <label>Celular:</label>
+            <input type="number" placeholder="(23)99999-9999" value="" name="contatoInstrutor">
+
+            <label>Data de Nascimento:</label>
+            <input type="number" placeholder="01/01/0001" value="" name="dataNascimentoInstrutor">
+
             <div class="buttons">
                 <input type="submit" value="Cadastrar">
                 <a href=""><input value="Retornar a Home"></a>
@@ -95,5 +135,6 @@
 
         </form>
     </div>
-    </body>
+</body>
+
 </html>

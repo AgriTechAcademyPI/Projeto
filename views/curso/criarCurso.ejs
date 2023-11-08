@@ -1,174 +1,274 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Curso</title>
 </head>
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+    }
+
     .content {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .content > div {
+
+    .content>div {
         flex: 1;
         padding: 10px;
     }
+
     nav {
-display: flex;
-}
-.home:focus, .cursos:focus, .sobre:focus, .contatos:focus, .servicos:focus {
-color:#FF9F1C;
-}
-header {
-width: 1280px;
-height: 94px;
-flex-shrink: 0;
-background: transparent;
-display: flex;
-align-items: center;
-justify-content: space-between;
-font-family: 'Cairo', sans-serif
-}
+        display: flex;
+    }
 
-header img {
-width: 78px;
-height: 78px;
-border-radius: 44px;
-background: url('<path-to-image>'), lightgray 50% / cover no-repeat;
-}
-.home, .cursos, .sobre, .contatos, .servicos {
-width: 96px;
-height: 35px;
-flex-shrink: 0;
-color: #539B2D;
-font-family: Cairo;
-font-size: 22px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-}
+    .home:focus,
+    .cursos:focus,
+    .sobre:focus,
+    .contatos:focus,
+    .servicos:focus {
+        color: #FF9F1C;
+    }
 
-/* Botões de login e cadastro */
-.login{
-width: 124px;
-height: 39px;
-flex-shrink: 0;
-background: #FF9F1C;
-color: #FFF;
-text-align: center;
-font-size: 30px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-border: none;
-}
-.cadastre-se{
-display: flex;
-width: 138px;
-height: 39px;
-background: #FF9F1C;
-flex-direction: column;
-justify-content: center;
-flex-shrink: 0;
-color: #FFF;
-text-align: center;
-font-family: Cairo;
-font-size: 18px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-border: none;
-}
-body {
-font-family: 'Cairo', sans-serif; /* Fonte do corpo do documento */
-width: 1280px;
-height: 832px;
-flex-shrink: 0;
-background-size: cover;
-background-position: center;
-transition: background-image 2s ease-in-out;
-}
-header {
-width: 1280px;
-height: 94px;
-flex-shrink: 0;
-background: transparent;
-display: flex;
-align-items: center;
-justify-content: space-between;
-font-family: 'Cairo', sans-serif
-}
+    header {
+        width: 1280px;
+        height: 94px;
+        flex-shrink: 0;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: 'Cairo', sans-serif
+    }
 
-header img {
-width: 78px;
-height: 78px;
-border-radius: 44px;
-background: url('<path-to-image>'), lightgray 50% / cover no-repeat;
-}
+    header img {
+        width: 78px;
+        height: 78px;
+        border-radius: 44px;
+        background: url('<path-to-image>'), lightgray 50% / cover no-repeat;
+    }
 
-/* Títulos ao lado do logo */
-.titulo {
-display: flex;
-flex-direction: column;
-}
+    .home,
+    .cursos,
+    .sobre,
+    .contatos,
+    .servicos {
+        width: 96px;
+        height: 35px;
+        flex-shrink: 0;
+        color: #539B2D;
+        font-family: Cairo;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
 
-.titulo1, .titulo2 {
-flex-shrink: 0;
-font-family: 'Cairo', sans-serif;
-font-size: 36px;
-font-style: normal;
-font-weight: 400;
-line-height: normal; 
-}
+    /* Botões de login e cadastro */
+    .login {
+        width: 124px;
+        height: 39px;
+        flex-shrink: 0;
+        background: #FF9F1C;
+        color: #FFF;
+        text-align: center;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        border: none;
+    }
 
-.titulo1 {
-color: #539B2D;
-width: 183px;
-height: 83px;
+    .cadastre-se {
+        display: flex;
+        width: 138px;
+        height: 39px;
+        background: #FF9F1C;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+        color: #FFF;
+        text-align: center;
+        font-family: Cairo;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        border: none;
+    }
 
-}
+    body {
+        font-family: 'Cairo', sans-serif;
+        /* Fonte do corpo do documento */
+        width: 1280px;
+        height: 832px;
+        flex-shrink: 0;
+        background-size: cover;
+        background-position: center;
+        transition: background-image 2s ease-in-out;
+    }
 
-.titulo2 {
-color: #FF9F1C;
-width: 183px;
-height: 83px;
-margin-bottom: 0px;
-margin-left: 0px;
-}
-.endereco{
-color: #539B2D;
-text-align: center;
-font-family: Cairo;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-}
-.mens{
-border-radius: 100px;
-border: 1px solid #FF9F1C;
-background: #D9D9D9;
-}
-.botao{
-border-radius: 100px;
-border: 1px solid #FF9F1C;
-background: #D9D9D9;
-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-width: 209px;
-height: 46px;
-flex-shrink: 0;
-}
-.imgc{
-border-radius: 100px;
-border: 1px solid #FF9F1C;
-background: #D9D9D9;
-width: 285px;
-height: 127px;
-flex-shrink: 0;
-}
+    header {
+        width: 1280px;
+        height: 94px;
+        flex-shrink: 0;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: 'Cairo', sans-serif
+    }
+
+    header img {
+        width: 78px;
+        height: 78px;
+        border-radius: 44px;
+        background: url('<path-to-image>'), lightgray 50% / cover no-repeat;
+    }
+
+    /* Títulos ao lado do logo */
+    .titulo {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .titulo1,
+    .titulo2 {
+        flex-shrink: 0;
+        font-family: 'Cairo', sans-serif;
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .titulo1 {
+        color: #539B2D;
+        width: 183px;
+        height: 83px;
+
+    }
+
+    .titulo2 {
+        color: #FF9F1C;
+        width: 183px;
+        height: 83px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+    }
+
+    .endereco {
+        color: #539B2D;
+        text-align: center;
+        font-family: Cairo;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .mens {
+        border-radius: 100px;
+        border: 1px solid #FF9F1C;
+        background: #D9D9D9;
+    }
+
+    .botao {
+        border-radius: 100px;
+        border: 1px solid #FF9F1C;
+        background: #D9D9D9;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        width: 209px;
+        height: 46px;
+        flex-shrink: 0;
+    }
+
+    .imgc {
+        border-radius: 100px;
+        border: 1px solid #FF9F1C;
+        background: #D9D9D9;
+        width: 285px;
+        height: 127px;
+        flex-shrink: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: #539B2D;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    form {
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    label {
+        display: block;
+        margin: 10px 0;
+        color: #539B2D;
+        text-align: center;
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #FF9F1C;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .btn:hover {
+        background-color: #218838;
+    }
+
+    .card {
+        width: 1100px;
+        height: 100%;
+        flex-shrink: 0;
+        border-radius: 105px;
+        opacity: 0.85;
+        background: #FFF;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        padding-bottom: 30px ;
+    }
+    .container{
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+    }
 </style>
+</head>
+
 <body>
     <header style="background: transparent;">
         <img src="/SITE/imagens/Design sem nome (10) 1logo header.svg" alt="Logo" <div class="titulo">
@@ -186,39 +286,43 @@ flex-shrink: 0;
         <button class="cadastre-se">CADASTRE-SE</button>
     </header>
 
-    <h1>Cadastrar Curso</h1>
+    <div class="container">
+        <div class="card">
+            <h1>Cadastrar Curso</h1>
+            <form action="/cadastrarCurso" method="post">
+                <label class="endereco">Titulo:</label>
+                <input type="text" placeholder="" value="" name="tituloCurso" class="mens">
 
-        
-    <form action="/cadastrarCurso" method="post">
-        <label class="endereco">Titulo:</label>
-        <input type="text" placeholder="" value="" name="tituloCurso" class="mens">
+                <label>Descricao:</label>
+                <input type="text" placeholder="" value="" name="descricaoCurso">
 
-        <label>Descricao:</label>
-        <input type="text" placeholder="" value="" name="descricaoCurso">
+                <label>Preço:</label>
+                <input type="number" placeholder="" value="" name="precoCurso">
 
-        <label>Preço:</label>
-        <input type="number" placeholder="" value="" name="precoCurso">
+                <label>Instrutor:</label>
+                <input type="number" placeholder="<%= usuario.nomeUsuario %>" disabled>
+                <input type="hidden" value="<%= instrutor.id %>" name="instrutorCurso">
 
-        <label>Instrutor:</label>
-        <input type="number" placeholder="<%= usuario.nomeUsuario %>" disabled>
-        <input type="number" value="<%= instrutor.id %>" name="instrutorCurso">
+                <label>Categoria:</label>
+                <select name="categoria" class="form-control">
+                    <% categorias.forEach((categoria)=> { %>
+                        <option name="categoria" value="<%= categoria.id %>">
+                            <%= categoria.title %>
+                        </option>
+                        <% }) %>
+                </select>
 
-        <label>Categoria:</label>
-        <select name="categoria" class="form-control">
-            <% categorias.forEach((categoria) => { %>
-                <option name="categoria" value="<%= categoria.id %>"> <%= categoria.title %> </option>
-            <% }) %>
+                <label>Imagem:</label>
+                <input type="text" placeholder="" value="" name="imagemCurso">
 
+                <label>link:</label>
+                <input type="text" placeholder="Coloque aqui o link não listado" value="" name="linkCurso">
 
-        <label>Imagem:</label>
-        <input type="text" placeholder="" value="" name="imagemCurso">
-        
-        <label>link:</label>
-        <input type="text" placeholder="Coloque aqui o link não listado" value="" name="linkCurso">
-        
-        <button class="btn btn-success">Cadastrar</button>
+                <button class="btn btn-success">Cadastrar</button>
 
-    </form>
-    
+            </form>
+        </div>
+    </div>
 </body>
+
 </html>
