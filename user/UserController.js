@@ -48,6 +48,7 @@ router.post("/autenticarLogin", (req, res) =>{
 
         if(user != undefined){
             var validacaoDeSenha = bcrypt.compareSync(senhaLogin, user.senha)
+
             
             if(validacaoDeSenha){
                  req.session.user = {
@@ -55,7 +56,10 @@ router.post("/autenticarLogin", (req, res) =>{
                     emai: user.email,
                     nome: user.nomeUsuario
                 }
+             const idUsuarioSession = req.session.user.id
+
                 res.redirect("/")
+            
             }else{
                 res.send("senha errada")
             }
