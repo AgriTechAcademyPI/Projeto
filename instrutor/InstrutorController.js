@@ -34,7 +34,7 @@ router.post("/cadastrarInstrutor", (req, res) =>{
         celular: contatoInstrutor,
         dataDeNascimento: dataNascimentoInstrutor
     }).then(() =>{
-        res.redirect("/")
+        res.redirect("/cursos")
     }).catch((err) =>{
         res.send("/f")
     })

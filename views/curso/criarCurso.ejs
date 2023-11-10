@@ -259,32 +259,34 @@
         opacity: 0.85;
         background: #FFF;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-        padding-bottom: 30px ;
+        padding-bottom: 30px;
     }
-    .container{
+
+    .container {
         width: 100vw;
         display: flex;
         justify-content: center;
+        margin-top: 50px;
     }
+
+
+    .voltarHome {
+        width: 300px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid #FF9F1C;
+        margin: 18px 0px 0px 10px;
+        text-decoration: none;
+        color: black;
+        text-align: center;
+    }
+
+  
 </style>
 </head>
 
 <body>
-    <header style="background: transparent;">
-        <img src="/SITE/imagens/Design sem nome (10) 1logo header.svg" alt="Logo" <div class="titulo">
-        <p class="titulo1">AgriTech</p>
-        <p class="titulo2">Academy</p>
-        </div>
-        <nav>
-            <a class="home" href="#">Home</a>
-            <a class="cursos" href="#">Cursos</a>
-            <a class="sobre" href="#">Sobre</a>
-            <a class="contatos" href="#">Contatos</a>
-            <a class="servicos" href="#">Serviços</a>
-        </nav>
-        <button class="login">LOGIN</button>
-        <button class="cadastre-se">CADASTRE-SE</button>
-    </header>
+
 
     <div class="container">
         <div class="card">
@@ -318,7 +320,13 @@
                 <label>link:</label>
                 <input type="text" placeholder="Coloque aqui o link não listado" value="" name="linkCurso">
 
-                <button class="btn btn-success">Cadastrar</button>
+                <div style="display:flex ;">
+                    <button class="btn btn-success">Cadastrar</button>
+                    <a class="voltarHome" href="/">Retornar a Home</a>
+
+                </div>
+                
+
 
             </form>
         </div>
