@@ -4,6 +4,7 @@ const Curso = require("./Curso")
 const User = require("../user/User")
 const Instrutor = require("../instrutor/Instrutor")
 const Categoria = require("./Categoria")
+const { where } = require("sequelize")
 
 router.get("/cadastro/curso", (req, res) => {
     if (req.session.user != undefined) {
@@ -74,8 +75,11 @@ router.get("/cursos", (req, res) => {
 
         Curso.findAll().then(cursos => {
             User.findOne({ where: { id: idUsuarioSession } }).then(usuario => {
-                 var sessao = 1
-                res.render("curso/listaCursos.ejs", { cursos: cursos, usuario: usuario, sessao: sessao })
+                Categoria.findAll().then(categorias =>{
+                    var sessao = 1
+                    res.render("curso/listaCursos.ejs", { cursos: cursos, usuario: usuario, sessao: sessao, categorias: categorias })
+                })
+                 
             })
 
 
@@ -84,13 +88,61 @@ router.get("/cursos", (req, res) => {
     } else if(req.session.user == undefined) {
 
         Curso.findAll().then(cursos => {
-               var sessao = 0
-                res.render("curso/listaCursos.ejs", { cursos: cursos, sessao: sessao })
+            Categoria.findAll().then(categorias =>{
+                var sessao = 0
+                res.render("curso/listaCursos.ejs", { cursos: cursos, sessao: sessao, categorias: categorias })
            
+            })
+              
 
 
         })
     }
+})
+
+router.get("/cursos/:categoria", (req, res)=>{
+    const categoria = req.params.categoria
+    if (req.session.user != undefined) {
+        const idUsuarioSession = req.session.user.id
+
+        Categoria.findOne({where:{title: categoria}}).then(categoria =>{
+            Curso.findAll({where:{idCategoria:categoria.id }}).then(cursos => {
+                User.findOne({ where: { id: idUsuarioSession } }).then(usuario => {
+                    Categoria.findAll().then(categorias =>{
+                        var sessao = 1
+                        res.render("curso/listaCursoFiltado.ejs", { cursos: cursos, usuario: usuario, sessao: sessao, categoria: categoria, categorias:categorias })
+                    
+                    })
+                       
+                     
+                })
+    
+    
+            })
+        })
+       
+
+    } else if(req.session.user == undefined) {
+
+        Categoria.findOne({where:{title: categoria }}).then(categoria =>{
+            Curso.findAll({where:{idCategoria: categoria.id}}).then(cursos => {
+                Categoria.findAll().then(categorias =>{
+
+                var sessao = 0
+                res.render("curso/listaCursoFiltrado.ejs", { cursos: cursos, sessao: sessao, categoria: categoria, categorias: categorias })
+            })
+        })
+        })
+        
+    }
+
+})
+
+router.post("/filtrarCursos",(req, res) =>{
+    const idCategoria = req.body.categorias
+    res.redirect("/cursos/"+ idCategoria)
+
+
 })
 
 
