@@ -110,7 +110,7 @@ router.get("/cursos/:categoria", (req, res)=>{
                 User.findOne({ where: { id: idUsuarioSession } }).then(usuario => {
                     Categoria.findAll().then(categorias =>{
                         var sessao = 1
-                        res.render("curso/listaCursoFiltado.ejs", { cursos: cursos, usuario: usuario, sessao: sessao, categoria: categoria, categorias:categorias })
+                        res.render("curso/listaCursoFiltrado.ejs", { cursos: cursos, usuario: usuario, sessao: sessao, categoria: categoria, categorias:categorias })
                     
                     })
                        
