@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
 .flexivel{
   display: flex;
 }
@@ -187,6 +193,7 @@ button {
   justify-content: space-around;
   align-items: center;
   width: 80%;
+  padding-bottom: 50px;
 }
 
 .esquerda {
@@ -196,6 +203,14 @@ button {
   justify-content: space-around;
   width:  40%;
   
+}
+
+.esquerda h3{
+  color: orange;
+}
+
+.direita h3{
+  color: orange
 }
 .direita {
   width: 50vw;
@@ -218,33 +233,34 @@ button {
 }
 
 .Sobre {
-  background-image: url("../img/fundo2.jpeg");
+  background-color: rgba(255, 166, 0, 0.174);
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 100px;
   
 }
 .Sobre h1{
   margin-bottom: 60px;
-  color: #539B2D;
+  color: orange;
+  margin-top: 60px;
+
 }
 .Servico {
-  background-image: url("../img/fundo2.jpeg");
+  background-color: rgba(211, 211, 211, 0.425);
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 100px;
   margin-bottom: 60px;
   
 }
 .Servico h1{
   margin-bottom: 60px;
-  color: #539B2D;
+  color: orange;
+  margin-top: 50px;
 }
 
 .logo {
@@ -275,6 +291,7 @@ body {
 footer{
   width: 100vw;
   background-color: #539B2D;
+  margin-top: -70px;
 }
 
 .container-footer{
@@ -322,4 +339,7 @@ iframe{
 }
 .coluna h5{
   color: #fff;
+}
+.sobreATA{
+  text-align: left;
 }
