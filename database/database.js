@@ -2,9 +2,9 @@
     client: 'mysql2',
     connection: {
       host : 'localhost',
-      user : 'root',
-      password : 'familia100',
-      database : 'agritech6'
+      user : '***',
+      password : '***',
+      database : '***'
     }
   });
 
