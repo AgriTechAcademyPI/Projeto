@@ -2,17 +2,32 @@ const express = require("express")
 const router = express.Router()
 const Instrutor = require("./Instrutor")
 const User = require("../user/User")
+const database = require("../database/database")
+
 
 router.get("/cadastro/instrutor", (req, res) =>{
     
     if(req.session.user != undefined){
         idUsuarioSession = req.session.user.id
 
-        User.findOne({where: {id: idUsuarioSession}}).then(usuario =>{
+        database.select().where({id: idUsuarioSession}).table("usuarios").first().then(usuario =>{
+            console.log(usuario)
             res.render("instrutores/cadastroInstrutor.ejs", {usuario: usuario})
+
+
+        }).catch(err =>{
 
         })
 
+       /* 
+        ##### Sequelize
+       User.findOne({where: {id: idUsuarioSession}}).then(usuario =>{
+            res.render("instrutores/cadastroInstrutor.ejs", {usuario: usuario})
+
+        }) */
+
+    }else{
+        res.send("É necessario ter um cadastro para se tornar instrutor")
     }
 
     })

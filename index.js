@@ -2,10 +2,14 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const session = require("express-session")
+
+/* var database = require("./database/database")
+ */
 const connection = require("./database/connection")
 const UserController = require("./user/UserController")
 const InstrutorController = require("./instrutor/InstrutorController")
 const CursoController = require("./curso/CursoController")
+
 
 
 
@@ -35,7 +39,7 @@ connection
     .then(() =>{
         console.log("Conexão ao banco de dados realizada com sucesso")
     }).catch((error) =>{
-        console.log("Erro na conexão com o banco de dados")
+        console.log("Erro na conexão com o banco de dados", error)
     })
 
 app.use("/", UserController)

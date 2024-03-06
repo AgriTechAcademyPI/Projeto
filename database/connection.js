@@ -1,14 +1,14 @@
-/* const Sequelize = require("sequelize")
+const Sequelize = require("sequelize")
 
-const connection = new Sequelize('agritec2', 'root', 'root', {
+const connection = new Sequelize('agritech6', 'root', 'familia100', {
     host: 'localhost',
     dialect: 'mysql',
     timezone: '-03:00'
 })
 
-module.exports = connection */
+module.exports = connection
 
-const Sequelize = require("sequelize")
+/* const Sequelize = require("sequelize")
 
 const connection = new Sequelize('railway', 'root', 'Qig7wZRmxImGvBNm0DHH', {
     host: 'containers-us-west-103.railway.app',
@@ -18,4 +18,4 @@ const connection = new Sequelize('railway', 'root', 'Qig7wZRmxImGvBNm0DHH', {
 })
 
 module.exports = connection
-//
+ */

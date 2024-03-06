@@ -9,9 +9,12 @@ const Categoria = connection.define('categorias', {
         type: Sequelize.STRING,
         allowNull: true
     }
-})
+    
+}, 
+    {timestamps: false}
+)
 
 /*     Categoria.sync({force: false}) 
- */  
+ */   
 
 module.exports = Categoria

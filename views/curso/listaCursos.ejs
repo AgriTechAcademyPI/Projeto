@@ -261,12 +261,18 @@
 
 <body>
 
-    <header class="header">
+    <header class="header"> 
 
         <nav class="navbar">
             <a href="/">Home</a>
             <a href="/cadastro/instrutor">Tornar-se Instrutor</a>
             <a href="/cadastro/curso">Cadastrar Curso</a>
+            <%if(sessao==1){%>
+            <a href="/curso/meuscursos">Meus Cursos</a>
+
+            <%}%>
+
+
         </nav>
         <%if(sessao==1){%>
 

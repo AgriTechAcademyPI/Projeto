@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.background {
+    background-image: url('/img/backgroundCadastroCurso.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+}
+
+.menua a{
+    text-decoration: none;
+    color: white;
+    font-size: 22px;
+    margin-left: 20px;
+}
+
+.navbar{
+    display: flex;
+    padding: 10px;
+    margin-top: -50px;
+    
+}
+
+.logo{
+    height: 180px;
+    width: 230px;
+}
+
+.menua{
+    text-align: left;
+}
+
+.fundoMain{
+    background-color: rgb(211, 211, 211, 0.8);
+    border-radius: 10%;
+    margin: -20px 2.4% 40px 2.4%;
+    padding: 10px 20px 10px 20px;
+    width: 95%;
+
+
+}
+
+.titulo{
+    color: orange;
+    text-align: center;
+}
+
+.parteBaixo{
+    display: flex;
+}
+
+
+.parte1{
+    width: 26.5%;
+    text-align: center;
+}
+
+.image{
+    width: 220px;
+    height: 150px;
+    border-radius: 5%;
+
+}
+
+.parte2{
+    width: 36.5%;
+    text-align: center;
+}
+
+.parte3{
+    width: 31.5%;
+    text-align:center ;
+}
