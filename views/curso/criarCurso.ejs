@@ -280,6 +280,12 @@
         color: black;
         text-align: center;
     }
+    
+    #descricaoCurso{
+        height: 100px;
+        text-align: center;
+        
+    }
 
   
 </style>
@@ -296,14 +302,14 @@
                 <input type="text" placeholder="" value="" name="tituloCurso" class="mens">
 
                 <label>Descricao:</label>
-                <input type="text" placeholder="" value="" name="descricaoCurso">
+                <input type="text" placeholder="" value="" name="descricaoCurso" id="descricaoCurso">
 
                 <label>Preço:</label>
                 <input type="number" placeholder="" value="" name="precoCurso">
 
                 <label>Instrutor:</label>
-                <input type="number" placeholder="<%= usuario.nomeUsuario %>" disabled>
-                <input type="hidden" value="<%= instrutor.id %>" name="instrutorCurso">
+                <input type="number" placeholder="<%= instrutor.nomeUsuario %>" disabled>
+                <input type="hidden" value="<%= instrutor.idInstrutor %>" name="instrutorCurso">
 
                 <label>Categoria:</label>
                 <select name="categoria" class="form-control">
@@ -316,9 +322,25 @@
 
                 <label>Imagem:</label>
                 <input type="text" placeholder="" value="" name="imagemCurso">
+                
+                <h2> Cadastre a sua primeira aula</h2>
 
-                <label>link:</label>
-                <input type="text" placeholder="Coloque aqui o link não listado" value="" name="linkCurso">
+                <label>Título da Aula</label>
+                <input type="text" value="" name="tituloAulaCurso">
+
+                <label>Descrição da Aula</label>
+                <input type="text" value="" name="descricaoAulaCurso">
+
+                <label>Duração da Aula</label>
+                <input type="text" value="" name="duracaoAulaCurso">
+
+                <label>Link do Vídeo</label>
+                <input type="text" placeholder="Cole aqui o link do vídeo" value="" name="linkCurso">
+
+                <label>Data de Criação</label>
+                <input type="text" value="" name="dataCriacao" id="dataCriacaoCurso">
+
+                
 
                 <div style="display:flex ;">
                     <button class="btn btn-success">Cadastrar</button>
@@ -332,5 +354,29 @@
         </div>
     </div>
 </body>
+
+<script>
+    var dataAtual = new Date();
+
+    var ano = dataAtual.getFullYear(); 
+    var mes = dataAtual.getMonth() + 1; 
+    var dia = dataAtual.getDate(); 
+
+    var dataCompleta = ano + "-" + mes + "-" + dia;
+
+    document.addEventListener('DOMContentLoaded', function(){
+
+        var dataCriacao = document.getElementById('dataCriacao');
+
+        dataCriacao.value = dataCompleta
+        dataCriacao.placeholder = dataCompleta
+
+
+
+    })
+
+
+
+</script>
 
 </html>
