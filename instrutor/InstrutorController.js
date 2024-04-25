@@ -1,18 +1,26 @@
 const express = require("express")
 const router = express.Router()
-const Instrutor = require("./Instrutor")
-const User = require("../user/User")
+const database = require("../database/database")
+
 
 router.get("/cadastro/instrutor", (req, res) =>{
     
     if(req.session.user != undefined){
         idUsuarioSession = req.session.user.id
 
-        User.findOne({where: {id: idUsuarioSession}}).then(usuario =>{
+        database.select().where({id: idUsuarioSession}).table("usuarios").first().then(usuario =>{
+            console.log(usuario)
             res.render("instrutores/cadastroInstrutor.ejs", {usuario: usuario})
+
+
+        }).catch(err =>{
 
         })
 
+     
+
+    }else{
+        res.send("É necessario ter um cadastro para se tornar instrutor")
     }
 
     })
@@ -26,14 +34,14 @@ router.post("/cadastrarInstrutor", (req, res) =>{
     const contatoInstrutor = req.body.contatoInstrutor
     const dataNascimentoInstrutor = req.body.dataNascimentoInstrutor
 
-    Instrutor.create({
+    database.insert({
         idUsuario: idUsuario,
         cpf: cpfInstrutor,
         endereco: enderecoInstrutor,
         nomeCompleto: nomeInstrutor,
         celular: contatoInstrutor,
         dataDeNascimento: dataNascimentoInstrutor
-    }).then(() =>{
+    }).table('instrutores').then(() =>{
         res.redirect("/cursos")
     }).catch((err) =>{
         res.send("/f")

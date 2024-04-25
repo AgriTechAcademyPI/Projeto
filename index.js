@@ -2,10 +2,14 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const session = require("express-session")
-const connection = require("./database/connection")
+
+/* var database = require("./database/database")
+ */
+const connection = require("./database/database")
 const UserController = require("./user/UserController")
 const InstrutorController = require("./instrutor/InstrutorController")
 const CursoController = require("./curso/CursoController")
+
 
 
 
@@ -30,13 +34,6 @@ app.use(session({
 }))
 
 
-connection
-    .authenticate()
-    .then(() =>{
-        console.log("Conexão ao banco de dados realizada com sucesso")
-    }).catch((error) =>{
-        console.log("Erro na conexão com o banco de dados")
-    })
 
 app.use("/", UserController)
 app.use("/", InstrutorController)
@@ -44,10 +41,20 @@ app.use("/", CursoController)
 
 
 app.get("/" , (req,res) =>{
-    res.render("index.ejs")
+    const sessao = req.session.user
+    var sessao1
+    if(sessao == undefined){
+        sessao1 = 0 
+        res.render("home.ejs", {sessao1:sessao1})
+
+    }else if(sessao != undefined){
+        const nomeUsuarioSession = req.session.user.nome
+        sessao1 = 1
+        res.render("home.ejs", {nomeUsuarioSession: nomeUsuarioSession, sessao1:sessao1})
+
+    }
+
 })
-
-
 
 
 app.listen(8080, () =>{

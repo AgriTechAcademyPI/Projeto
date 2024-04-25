@@ -54,6 +54,11 @@
             background-color: rgb(47, 196, 42);
         }
 
+        #aulaMain{
+            background-color: rgb(47, 196, 42);
+
+        }
+
         .content {
             margin-left: 500px;
             margin-top: 50px;
@@ -139,6 +144,10 @@
         .imgCurso{
             margin-left: 200px;
         }
+        .linkAula{
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 
@@ -152,10 +161,12 @@
     </div>
 
     <div class="navigation">
-        <div id="aula1"
-            onclick="loadVideo('aula1', 'video1.mp4', 'Nesta aula, exploraremos os fundamentos da agricultura moderna. Vamos discutir as últimas tendências e inovações que estão transformando a indústria agrícola.')">
-            Aula 1</div>
+        <div id="aulaMain"> <%= curso.tituloAulaCurso %></div>
 
+        <%aulas.forEach(aula=> {%>
+        <a class="linkAula" href="/assistir/<%= curso.titulo%>/<%=aula.tituloAula%>"  ><div id="aula1">  <%=aula.tituloAula%></div></a>
+
+        <%})%>
     </div>
 
     <div class="content">
@@ -176,41 +187,29 @@
         </div>
         <span class="camposSpan">
             <h2>Categoria: <h3>
-                    <%= categoria.title %>
+                    <%= curso.title %>
                 </h3>
             </h2>
         </span>
         <span class="camposSpan">
             <h2>Instrutor: <h3>
-                    <%= instrutor.nomeCompleto %>
+                    <%= curso.nomeCompleto %>
                 </h3>
             </h2>
         </span>
         <span class="camposSpan">
             <h2>Contato: <h3>
-                    <%= instrutor.celular %>
+                    <%= curso.celular %>
                 </h3>
             </h2>
         </span>
 
-
-
     </div>
+    
 
-    <script>
-        var currentAula;
 
-        function loadVideo(aula, video, synopsis) {
-            document.getElementById('video').src = video;
-            document.getElementById('synopsis').innerText = synopsis;
-            currentAula = aula;
-        }
-
-        function markAsWatched() {
-            document.getElementById(currentAula).classList.add('watched');
-        }
-    </script>
 
 </body>
+
 
 </html>
