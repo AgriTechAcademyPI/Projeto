@@ -67,11 +67,57 @@ router.get("/assistir/curso/:nomeCurso", (req, res) => {
     .innerJoin("categorias", "categorias.id", "cursos.idCategoria")
     .where("cursos.titulo", nomeCurso)
     .first().then(curso =>{
-        database.select(["aulas.*"]).table("aulas")
-        .innerJoin("cursos", "cursos.id", "aulas.idCurso")
+        database.select(["aulas.*", "aulas.id as idAula", "aulas_concluidas.id as idAulaConcluida" , "aulas_concluidas.concluida" ])
+        .table("aulas")
+        .leftJoin("cursos", "cursos.id", "aulas.idCurso")
+        .leftJoin("aulas_concluidas", "aulas_concluidas.idAula", "aulas.id")
         .where("aulas.idCurso", curso.idDoCurso).then(aulas =>{
-            console.log(aulas)
-            res.render("curso/assistirCurso.ejs", {curso: curso, aulas: aulas})
+            database.select(["perguntas.*", "usuarios.*"]).table("perguntas")
+            .innerJoin("cursos", "cursos.id", "perguntas.idCurso")
+            .innerJoin("usuarios", "usuarios.id", "perguntas.idUsuario").then(perguntas =>{
+
+                const queryTotalAulas = `SELECT COUNT(*) AS total_aulas FROM aulas WHERE idCurso = ?`;
+                            const queryAulasAssistidas = `SELECT COUNT(*) AS aulas_assistidas FROM aulas_concluidas WHERE idCurso = ?`;
+
+                            database.raw(queryTotalAulas, [curso.idDoCurso])
+                                .then(resultsTotalAulas => {
+                                    const total_aulas = resultsTotalAulas[0][0].total_aulas;
+
+                                    database.raw(queryAulasAssistidas, [curso.idDoCurso])
+                                        .then(resultsAulasAssistidas => {
+                                            const aulas_assistidas = resultsAulasAssistidas[0][0].aulas_assistidas;
+                                            const porcentagem_assistida = (aulas_assistidas / total_aulas) * 100;
+
+                                            const queryDuracaoTotal = `SELECT SUM(duracaoAula) AS duracao_total FROM aulas WHERE idCurso = ?`;
+                                            database.raw(queryDuracaoTotal, [curso.idDoCurso])
+                                                .then(resultsDuracaoTotal => {
+                                                    const duracao_total = resultsDuracaoTotal[0][0].duracao_total;
+
+                                                    // Consulta para calcular a duração total das aulas assistidas
+                                                    const queryDuracaoAssistida = `SELECT SUM(aulas.duracaoAula) AS duracao_assistida FROM aulas_concluidas INNER JOIN aulas ON aulas_concluidas.idAula = aulas.id WHERE aulas_concluidas.idCurso = ?`;
+                                                    database.raw(queryDuracaoAssistida, [curso.idDoCurso])
+                                                        .then(resultsDuracaoAssistida => {
+                                                            const duracao_assistida = resultsDuracaoAssistida[0][0].duracao_assistida;
+
+
+                                                            const progresso = {
+                                                                total_aulas: total_aulas,
+                                                                aulas_assistidas: aulas_assistidas,
+                                                                porcentagem_assistida: (aulas_assistidas / total_aulas) * 100,
+                                                                duracao_total: duracao_total,
+                                                                duracao_assistida: duracao_assistida
+                                                            };
+
+                                            res.render("curso/assistirCurso.ejs", { curso: curso, aulas: aulas, perguntas: perguntas, progresso: progresso });
+                                        })
+                                    })
+                                })
+                            })
+
+        
+            }).catch(err=>{
+                console.log("err" + perguntas)
+            })
 
         }).catch(err =>{
             console.log("Erro ao carregar Aulas" + err)
@@ -250,26 +296,71 @@ router.get("/assistir/:tituloCurso/:tituloAula", (req, res) =>{
     var tituloAula = req.params.tituloAula
 
 
-    database.select(["cursos.*","cursos.id as idDoCurso", "instrutores.*", "usuarios.*", "categorias.*" ]).table("cursos")
+    database.select(["cursos.*","cursos.id as idDoCurso", "instrutores.*", "usuarios.*", "categorias.*","aulas.*" ])
+    .table("aulas")
+    .innerJoin("cursos", "cursos.id", "aulas.idCurso")
     .innerJoin("instrutores", "instrutores.id", "cursos.idInstrutor")
     .innerJoin("usuarios", "usuarios.id", "instrutores.idUsuario")
     .innerJoin("categorias", "categorias.id", "cursos.idCategoria")
-    .where("cursos.titulo", tituloCurso)
-    .first().then(curso =>{
+    .where(function() {
+        this.where("aulas.tituloAula", "LIKE", `%${tituloAula}%`)
+            .andWhere("cursos.titulo", "LIKE", `%${tituloCurso}%`);
+    })
+    .first().then(aula=>{
 
-        database.select(["aulas.*"]).table("aulas")
-        .innerJoin("cursos", "cursos.id", "aulas.idCurso")
-        .where("aulas.idCurso", curso.idDoCurso).then(aulas =>{
-            database.select().table("aulas")
-            .where("aulas.tituloAula","=", tituloAula)
-            .andWhere("aulas.idCurso","=", curso.idDoCurso)
-            .first().then(aula=>{
-                res.render("curso/assistirAula.ejs", {curso: curso, aulas: aulas, aula:aula})
- 
+        database.select(["aulas.*", "aulas.id as idAula", "aulas_concluidas.id as idAulaConcluida" , "aulas_concluidas.concluida" ,"cursos.titulo as tituloCurso" ])
+        .table("aulas")
+        .leftJoin("cursos", "cursos.id", "aulas.idCurso")
+        .leftJoin("aulas_concluidas", "aulas_concluidas.idAula", "aulas.id")
+        .where("aulas.idCurso", aula.idCurso).then(aulas =>{
+            
 
-            }).catch(err =>{
-                console.log("erro aula"+ err)
-            }) 
+                database.select(["perguntas.*", "usuarios.*"]).table("perguntas")
+                .innerJoin("cursos", "cursos.id", "perguntas.idCurso")
+                .innerJoin("usuarios", "usuarios.id", "perguntas.idUsuario")
+                .where("perguntas.idAula", aula.id )
+                .then(perguntas =>{
+    
+                    const queryTotalAulas = `SELECT COUNT(*) AS total_aulas FROM aulas WHERE idCurso = ?`;
+                    const queryAulasAssistidas = `SELECT COUNT(*) AS aulas_assistidas FROM aulas_concluidas WHERE idCurso = ?`
+                    database.raw(queryTotalAulas, [aula.idDoCurso])
+
+                        .then(resultsTotalAulas => {
+                            const total_aulas = resultsTotalAulas[0][0].total_aulas
+                            database.raw(queryAulasAssistidas, [aula.idDoCurso])
+
+                                .then(resultsAulasAssistidas => {
+                                    const aulas_assistidas = resultsAulasAssistidas[0][0].aulas_assistidas;
+                                    const porcentagem_assistida = (aulas_assistidas / total_aulas) * 100
+                                    const queryDuracaoTotal = `SELECT SUM(duracaoAula) AS duracao_total FROM aulas WHERE idCurso = ?`;
+                                    database.raw(queryDuracaoTotal, [aula.idDoCurso])
+
+                                        .then(resultsDuracaoTotal => {
+                                            const duracao_total = resultsDuracaoTotal[0][0].duracao_total
+                                            // Consulta para calcular a duração total das aulas assistidas
+                                            const queryDuracaoAssistida = `SELECT SUM(aulas.duracaoAula) AS duracao_assistida FROM aulas_concluidas INNER JOIN aulas ON aulas_concluidas.idAula = aulas.id WHERE aulas_concluidas.idCurso = ?`;
+                                            database.raw(queryDuracaoAssistida, [aula.idDoCurso])
+
+                                                .then(resultsDuracaoAssistida => {
+                                                    const duracao_assistida = resultsDuracaoAssistida[0][0].duracao_assistida
+                                                    const progresso = {
+                                                        total_aulas: total_aulas,
+                                                        aulas_assistidas: aulas_assistidas,
+                                                        porcentagem_assistida: (aulas_assistidas / total_aulas) * 100,
+                                                        duracao_total: duracao_total,
+                                                        duracao_assistida: duracao_assistida
+                                                    }
+                                    res.render("curso/assistirAula2.ejs", { aula:aula , aulas: aulas, perguntas: perguntas, progresso: progresso });
+                                })
+                            })
+                        })
+                    })
+    
+            
+                }).catch(err=>{
+                    console.log("err" + perguntas)
+                }) 
+
         
 
         }).catch(err =>{
@@ -278,32 +369,68 @@ router.get("/assistir/:tituloCurso/:tituloAula", (req, res) =>{
       
    
     }).catch(err =>{
-        console.log("Erro de curso" + err)
+        console.log("Erro de aula" + err)
     })
 
 
 })
 
-router.post("/perguntarAula", (req, res) =>{
+router.post("/perguntarAulaCurso", (req, res) =>{
     var tituloPergunta = req.body.tituloPergunta
     var descricaoPergunta = req.body.descricaoPergunta
-    var idAula = req.body.idAula
-    var tituloCurso = req.body.tituloCurso
-    var tituloAula = req.body.tituloAula
+    var dataPergunta = req.body.dataPergunta
+    var idCurso = req.body.idCurso
     var idUsuarioLogado = req.session.user.id
 
     database.insert({
-        idAula:idAula,
+        idCurso: idCurso,
         idUsuario: idUsuarioLogado,
         tituloPergunta: tituloPergunta,
-        descricaoPergunta: descricaoPergunta
+        descricaoPergunta: descricaoPergunta,
+        dataPergunta: dataPergunta
     }).table("perguntas").then(() =>{
-        res.redirect("/assistir/"+ tituloCurso+"/"+ tituloAula)
+        res.redirect("/cursos")
     }).catch(err =>{
         console.log("Erro insert perguntas" + err)
     })
 
 })
+
+router.post("/salvaVideoAssistido", (req,res) =>{
+    var idUsuario = req.session.user.id
+    var idAula = req.body.idAula
+    var idCurso = req.body.idCurso
+    var concluida = 1
+    var dataConclusao = req.body.dataConclusao
+    const paginaAnterior = req.headers.referer
+    database.insert({
+        idUsuario: idUsuario,
+        idAula: idAula,
+        idCurso: idCurso,
+        concluida: concluida,
+        dataConclusao: dataConclusao
+    }).table("aulas_concluidas").then(() =>{
+        res.redirect(paginaAnterior)
+    }).catch(err =>{
+        console.log("Erro insert aulas_concluidas" + err)
+    })
+    
+})
+
+router.post("/removeVideoAssistido", (req,res) =>{
+   var idAulaConcluida =  req.body.idAulaConcluida
+   const paginaAnterior = req.headers.referer
+
+   database("aulas_concluidas")
+   .where('id', idAulaConcluida)
+   .delete().then(() =>{
+        res.redirect(paginaAnterior)
+    }).catch(function(error) {
+        console.error('Error deleting data:', error);
+    });
+
+})
+
 
 
 module.exports = router

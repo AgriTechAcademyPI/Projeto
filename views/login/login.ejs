@@ -1,273 +1,38 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Link de fonte apenas para Public Sans -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-    *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins',sans-serif;
-    font-weight: 700;
-}
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #539B2D;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .caixaFormulario{
-            margin: 150px 0px 0px 60px;
-        }
-
-        .rectangle {
-           
-            width: 95vw;
-            height: 95vh;
-            border-radius: 65px;
-            background: #8BEA38;
-            box-shadow: 0px 4px 50px 0px #000;
-            display: flex;
-            position: relative;
-            
-        }
-
-        .image-left {
-            width: 50%;
-            height: 100%;
-            border-radius: 56px;
-            background: url("../img/trator.svg"), lightgray 50% / cover no-repeat;
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-
-        .text-container {
-            color: #000;
-            font-family: 'Public Sans', sans-serif;
-            font-size: 25px;
-            -webkit-text-stroke: 0.3px white;
-            /* largura e cor do stroke */
-            margin-left: 230px;
-            margin-top: 50px;
-            margin-bottom: 2;
-        }
-
-        .input-box {
-            width: 412px;
-            height: 30px;
-            border-radius: 60px;
-            background: #BCB2B2;
-            margin-bottom: 26px;
-            margin-left: 70px;
-            background-image: url('/SITE/imagens/image\ 4\ \(1\).svg'); /* Defina a URL da sua imagem */
-            background-position: 2px center; /* Ajuste a posição da imagem */
-            background-repeat: no-repeat;
-            padding-left: 40px; /* Ajuste o espaçamento para acomodar a imagem */
-        }
-
-        .button {
-            width: 231px;
-            height: 76px;
-            border-radius: 26px;
-            background: #FF9F1C;
-            margin-left: 160px;
-            margin-top: 30px;
-            border: none;
-            margin-bottom: 150px;
-            /* Adicionado para estilizar o texto do botão */
-            color: #000;
-            font-size: 28px;
-            font-style: normal;
-            line-height: normal;
-            /* Adicionado para centralizar o texto no botão */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 400;
-        }
-        .button {
-            width: 231px;
-            height: 76px;
-            border-radius: 26px;
-            background: #FF9F1C;
-            margin-left: 60px;
-            margin-top: 30px;
-            border: none;
-            margin-bottom: 150px;
-            /* Adicionado para estilizar o texto do botão */
-            color: #000;
-            font-size: 28px;
-            font-style: normal;
-            line-height: normal;
-            /* Adicionado para centralizar o texto no botão */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 400;
-        }
-        .button2 {
-            width: 231px;
-            height: 76px;
-            border-radius: 26px;
-            background: #FF9F1C;
-            margin-top: 30px;
-            border: none;
-            margin-bottom: 150px;
-            /* Adicionado para estilizar o texto do botão */
-            color: #000;
-            font-size: 28px;
-            font-style: normal;
-            line-height: normal;
-            /* Adicionado para centralizar o texto no botão */
-            display: inline;
-            justify-content: center;
-            align-items: center; 
-            font-weight: 400;
-            margin-left: 20px;
-            text-decoration: none;
-            padding:15px 0px 0px 27px;
-            
-        }
-
-        /* Adicionado para a imagem no canto superior direito */
-        .top-right-image {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 128px;
-            height: 128px;
-            border-radius: 44px;
-            background: url('../img/logo.svg'), lightgray 50% / cover no-repeat;
-            margin-right: 17px;
-            margin-top: 13px;
-        }
-
-        /* Adicionado para a imagem no canto inferior direito */
-        .bottom-right-image {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 81px;
-            height: 81px;
-            /* background: url('/SITE/imagens/image_2Duvidas-removebg-preview\ 1.svg'), lightgray 50% / cover no-repeat; */
-            margin-right: 41px;
-            margin-bottom: 28px;
-        }
-
-        .esquecersenha {
-            width: 292px;
-            height: 36px;
-            flex-shrink: 0;
-            color: #000;
-            font-size: 24px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            -webkit-text-stroke: 0.2px white;
-            margin-left: 140px;
-            font-family: 'Public Sans', sans-serif;
-            margin-top: 10px;
-        }
-
-        .senha {
-            color: #000;
-            font-family: 'Public Sans', sans-serif;
-            font-size: 25px;
-            -webkit-text-stroke: 0.3px white;
-            /* largura e cor do stroke */
-            margin-left: 230px;
-            margin-top: 5px;
-        }
-
-        .login {
-            color: #000;
-            font-family: 'Public Sans', sans-serif;
-            font-size: 36px;
-            -webkit-text-stroke: 0.5px white;
-            /* largura e cor do stroke */
-            margin-left: 217px;
-            margin-top: 25px;
-        }
-
-        .caixa {
-            width: 412px;
-            height: 30px;
-            border-radius: 60px;
-            background: #BCB2B2;
-            margin-bottom: 3px;
-            margin-left: 70px;
-            background-image: url('../img/image 5.svg'); /* Defina a URL da sua imagem */
-            background-position: 2px center; /* Ajuste a posição da imagem */
-            background-repeat: no-repeat;
-            padding-left: 40px; /* Ajuste o espaçamento para acomodar a imagem */
-        }
-
-        /* Adicione o estilo para o ícone do olho */
-        .olho {
-            position: absolute;
-            top: 50%;
-            right: 70px;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-    </style>
-
+    <link rel="stylesheet" href="/css/loginStyle.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Login</title>
 </head>
-
 <body>
-    <div class="rectangle">
-        <div class="image-left"></div>
-        <div class="top-right-image">
-        </div> <!-- Adicionado a imagem no canto superior direito -->
-      
 
-        <form method="post" action="/autenticarLogin">
-            <div class="login">LOGIN</div>
-            <div class="caixaFormulario">
-            <div class="text-container">E-MAIL:</div>
-            <input class="input-box" type="text" placeholder="@gmail.com" name="emailLogin">
-            <div class="senha">SENHA:</div>
-            <!-- Campo de senha com ícone de olho -->
-            <div style="position: relative;">
-                <input class="caixa" type="password" id="senha" placeholder="*********" name="senhaLogin">
-                <span id="olho" class="olho" onclick="mostrarSenha()">&#128065;</span>
+    <div class="werapper">
+        <form method="POST" action="/autenticarLogin">
+            <h1>Entrar</h1>
+
+            <div class="input-box">
+                <input type="text" placeholder="Usuario" name="emailLogin" required>
+                <i class='bx bxs-user'></i>
             </div>
-
-            <div style="display: flex;">
-                <button class="button" type="submit">ENTRAR</button>
-                <a class="button2"  href="/cadastro"> CADASTRAR</a> 
-             </div>
             
-        </div>
-        </form>
-        </div>
-        </div>
+            <div class="input-box">
+                <input type="password" placeholder="Senha" name="senhaLogin" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+            <div class="lembrar-login">
+                <label><input type="checkbox">Lembrar minha senha</label>
+                <a href="#">Esqueceu a senha?</a>
+            </div>
+            <button type="submit" class="btn">Login</button>
+
+            <div class="cadastro">
+                <p>Você não tem cadastro? <a href="/cadastro">Clique aqui!</a></p>
+            </div>
+        </form>  
     </div>
-
-    <script>
-        function mostrarSenha() {
-            var senhaInput = document.getElementById("senha");
-            var olhoIcon = document.getElementById("olho");
-
-            if (senhaInput.type === "password") {
-                senhaInput.type = "text";
-                olhoIcon.innerHTML = "&#128064;"; // Ícone do olho aberto
-            } else {
-                senhaInput.type = "password";
-                olhoIcon.innerHTML = "&#128065;"; // Ícone do olho fechado
-            }
-        }
-    </script>
+    
 </body>
-
 </html>
