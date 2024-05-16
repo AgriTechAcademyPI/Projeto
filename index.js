@@ -2,6 +2,8 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const session = require("express-session")
+var router = require("./routes/routes")
+
 
 /* var database = require("./database/database")
  */
@@ -23,6 +25,8 @@ app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
+
+
 //static(para usar arquivos estaticos fts, css)
 app.use(express.static("public"))
 
@@ -38,6 +42,7 @@ app.use(session({
 app.use("/", UserController)
 app.use("/", InstrutorController)
 app.use("/", CursoController)
+app.use("/", router);
 
 
 app.get("/" , (req,res) =>{

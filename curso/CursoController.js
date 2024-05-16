@@ -77,7 +77,7 @@ router.get("/assistir/curso/:nomeCurso", (req, res) => {
             .innerJoin("usuarios", "usuarios.id", "perguntas.idUsuario").then(perguntas =>{
 
                 const queryTotalAulas = `SELECT COUNT(*) AS total_aulas FROM aulas WHERE idCurso = ?`;
-                            const queryAulasAssistidas = `SELECT COUNT(*) AS aulas_assistidas FROM aulas_concluidas WHERE idCurso = ?`;
+                const queryAulasAssistidas = `SELECT COUNT(*) AS aulas_assistidas FROM aulas_concluidas WHERE idCurso = ?`;
 
                             database.raw(queryTotalAulas, [curso.idDoCurso])
                                 .then(resultsTotalAulas => {
