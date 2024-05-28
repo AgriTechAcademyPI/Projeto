@@ -16,7 +16,7 @@ class Perfil{
                             )
                 .table("usuarios")
                 .leftJoin("instrutores","instrutores.idUsuario", "usuarios.id")
-                .where("usuarios.id", id)
+                .where("usuarios.id", id).first()
 
             return perfil
             
@@ -28,18 +28,18 @@ class Perfil{
 
     async findPerfilUsuarioByID(id){
         try {
-            var perfil = await knex.select("usuarios.*").table("usuarios").where("usuarios.id", id)
+            var perfil = await knex.select("usuarios.*").table("usuarios").where("usuarios.id", id).first()
             return perfil
         } catch (err) {
             res.status(403)
-            return []
+            return [] 
         }
     }
 
     async findPerfilInstrutorByID(id){
         try {
             var perfil = await knex.select("instrutores.*").table("instrutores")
-                        .where("instrutores.idUsuario", id)
+                        .where("instrutores.idUsuario", id).first()
             return perfil
         } catch (err) {
             res.status(403)
@@ -47,7 +47,7 @@ class Perfil{
         }
     }
 
-    async editarUsuarioPerfil(id, nomeUsuario, imagemUsuario, bibliografia, twitter, facebook, linkedin, github){
+    async editarUsuarioPerfil(id, nomeUsuario, bibliografia, email, twitter, facebook, linkedin, github, profissao){
         
         var usuarioPerfil = await this.findPerfilUsuarioByID(id)
 
@@ -55,12 +55,14 @@ class Perfil{
 
             var editarUsuarioPerfil = {
                 nomeUsuario: nomeUsuario,
-                imagemUsuario:imagemUsuario,
-                bibliografia: bibliografia,
+                email: email,
                 twitter: twitter,
                 facebook: facebook,
+                github: github,
                 linkedin: linkedin,
-                github: github
+                profissao: profissao,
+                bibliografia: bibliografia
+
             }
             
             try {
@@ -77,7 +79,7 @@ class Perfil{
         }
     }
 
-    async editarInstrutorPerfil(id, cpf, endereco, nomeCompleto, celular, dataDeNascimento){ //finalizar
+    async editarInstrutorPerfil(id, cpf, endereco, nomeCompleto, celular, dataDeNascimento){ 
         
         var instrutorPerfil = await this.findPerfilInstrutorByID(id)
 

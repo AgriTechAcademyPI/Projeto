@@ -220,6 +220,10 @@ body{
    #linkPerfil{
         margin-left: 0px;
     }
+
+    #bibliografiaUsuario{
+        width: 40px
+    }
   }
 
 

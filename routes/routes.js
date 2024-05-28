@@ -16,6 +16,6 @@ router.get("/perfilUsuario",PerfilController.perfilUsuarioByID)
 router.get("/perfilInstrutor",PerfilController.perfilInstrutorByID)
 router.put("/perfilUsuario",PerfilController.editarUsuarioPerfil)
 router.put("/perfilInstrutor",PerfilController.editarInstrutorPerfil)
-
+router.get("/perfil/usuario",PerfilController.perfilUsuario)
 
 module.exports = router;

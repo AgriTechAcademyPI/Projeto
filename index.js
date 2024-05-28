@@ -44,8 +44,35 @@ app.use("/", InstrutorController)
 app.use("/", CursoController)
 app.use("/", router);
 
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
+const jQuery = require('jquery');
+
+// Simule um ambiente de navegador carregando um documento HTML
+const dom = new JSDOM(`
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery with Node.js</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    <div id="content">This is some content</div>
+</body>
+</html>
+`);
+
+// Use jQuery no ambiente jsdom
+const $ = jQuery(dom.window);
+
+
 
 app.get("/" , (req,res) =>{
+    req.session.user = {
+        id: 1,
+        emai: "vivicogamerbr2@gmail.com",
+        nome: "Gaiz lindoo"
+    }
     const sessao = req.session.user
     var sessao1
     if(sessao == undefined){
@@ -54,6 +81,7 @@ app.get("/" , (req,res) =>{
 
     }else if(sessao != undefined){
         const nomeUsuarioSession = req.session.user.nome
+       
         sessao1 = 1
         res.render("home.ejs", {nomeUsuarioSession: nomeUsuarioSession, sessao1:sessao1})
 

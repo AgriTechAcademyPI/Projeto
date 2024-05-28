@@ -56,8 +56,8 @@ class PerfilController{
       if(req.session.user != undefined){
 
         var id = req.session.user.id
-        var {nomeUsuario, emailUsuario, bibliografia, twitter, facebook, linkedin, github} = req.body
-        var result = await Perfil.editarUsuarioPerfil(id, nomeUsuario, emailUsuario, bibliografia, twitter, facebook, linkedin, github ) //retorna o json
+        var {nomeUsuario, email, bibliografia, twitter, facebook, linkedin, github, profissao} = req.body
+        var result = await Perfil.editarUsuarioPerfil(id, nomeUsuario, bibliografia, email, twitter, facebook, linkedin, github, profissao) //retorna o json
 
 
         if(result != undefined){
@@ -72,7 +72,7 @@ class PerfilController{
             res.status(406)
                 res.send("usuario nao encontrado")
             
-        } 
+        }  
       }else{
         res.status(403)
         res.send("Usuário não logado")
@@ -85,7 +85,7 @@ class PerfilController{
       var id = req.session.user.id
       var {cpf, endereco, nomeCompleto, celular, dataDeNascimento} = req.body
       var result = await Perfil.editarInstrutorPerfil(id, cpf, endereco, nomeCompleto, celular, dataDeNascimento) //retorna o json
-
+        console.log(result)
 
       if(result != undefined){
           if(result.status){ //le o json true(deu certo)
@@ -105,6 +105,13 @@ class PerfilController{
       res.send("Usuário não logado")
     }
   }
+
+async perfilUsuario(req,res){
+  res.render("perfil/perfil.ejs")
+}
+
+
+
 }
 
 module.exports = new PerfilController()
