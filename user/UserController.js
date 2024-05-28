@@ -74,23 +74,6 @@ router.post("/autenticarLogin", (req, res) =>{
 
 
 
-router.get("/carregarPerfil", (req,res) =>{
-    if(req.session.user != undefined){
-        idUsuarioSession = req.session.user.id
-            User.findOne({where: {id: idUsuarioSession}}).then(usuario =>{
-                Instrutor.findOne({where: {idUsuario: idUsuarioSession}}).then(instrutor =>{
-                    res.render("perfil/perfil.ejs", {usuario: usuario, instrutor: instrutor})
-
-                })
-        })
-                
-    }
-
-})
-
-
-
-
 router.get("/logout", (req, res) => {
     req.session.user = undefined
     res.redirect("/")
