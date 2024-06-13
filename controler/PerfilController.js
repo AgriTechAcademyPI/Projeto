@@ -1,4 +1,4 @@
-var Perfil = require("../models/Perfil")
+var Perfil = require("../models/PerfilModel")
 
 class PerfilController{
     

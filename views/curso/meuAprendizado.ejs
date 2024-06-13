@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Aprendizado</title>
+    <link rel="stylesheet" href="/css/meuAprendizado.css">
+    <%- include('../partials/header.ejs'); %>
+</head>
+<body>
+    <%- include('../partials/navbarMeuAprendizado.ejs'); %>
+
+<section id="cabecalho">
+    <div class="container">
+        <div class="row">
+            <h1>Meu Aprendizado</h1>
+        </div>
+        <div class="row linhaLista">
+
+            <ul class="nav-links">
+            <li id="sessaoUsuarioMenu"> <a>Todos os cursos</a></li>
+            <li id="sessaoInstrutorMenu"><a>Arquivados</a></li>
+          </ul>
+
+        </div>
+    </div>
+</section>
+
+<section id="filtro">
+    <div class="row">
+        <div class="col-md"></div>
+        <div class="col-md">
+            <div class="input-group mb-2 mx-sm-3">
+                <input type="text" class="form-control" placeholder="Pesquisar meus cursos" aria-label="Search" aria-describedby="button-search">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md"></div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-floating">
+              <select class="form-select" id="filtroCursoOrdem">
+                <option selected value="1">Acessados recentemente</option>
+                <option value="2">Adquiridos recentemente</option>
+                <option value="3">Título: A a Z</option>
+                <option value="4">Título: Z a A</option>
+              </select>
+              <label for="filtroCursoOrdem">Classificar por</label>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="form-floating">
+              <select class="form-select" id="selectCategorias">
+                <option value="0" selected>Categorias</option>
+              </select>
+              <label for="selectCategorias">Filtrar por</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-floating">
+                <select class="form-select" id="selectProgresso">
+                  <option value="0" selected>Progresso</option>
+                  <option value="1">Não iniciado</option>
+                  <option value="2">Em andamento</option>
+                  <option value="3">Concluído</option>
+
+
+                </select>
+              </div>
+        </div>
+
+        <div class="col-md">
+            <div class="form-floating">
+                <select class="form-select" id="selectInstrutores">
+                  <option value="0" selected>Instrutor</option>
+                </select>
+              </div>
+        </div>
+        <div class="col-md-1">
+            <button id="botaoBuscar" class="btn btn-success"> Buscar </button>
+            <button id="botaoBuscar" class="btn btn-warning"> Redefinir </button>
+        </div>
+        
+    </div>
+</section>
+
+<section id="cursos">
+    <div class="container plantacao">      
+        <div id="testeee" class="row">
+
+   <%cursos.forEach((curso) =>{%>
+
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 align-self-center curso " data-ultimo-acesso="<%=curso.ultimoAcesso%>">
+        <div class="container containerPlantacaoDentro text-center ">
+            <div class="row ">
+                <img class="imagem " src="<%=curso.imagemCurso%>" alt="">
+            </div>
+            <div class="row">
+                <h3><%= curso.titulo %></h3>
+            </div>
+            <div class="row">
+                <p><%=curso.nomeInstrutor%></p>
+            </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar" aria-valuenow="50"></div>
+                </div>         
+            <div class="row align-items-start">
+                <div class="col-6">
+                    <img src="/img/icons/estrela.png" class="img-fluid estrela" alt="estrela">
+                </div>
+                <div class="col-6">
+                    <a class=" btn btn-warning btn-sm botao" href="/assistir/curso/<%=curso.titulo%>">Ver Mais</a>
+                </div>
+            </div>
+            <div class="row">
+                <p class="avaliacao">Deixe uma avaliação</p>
+            </div>
+        </div>
+    </div>
+   <% })%>
+        
+    </div>
+</div>
+
+</section>
+    
+
+<%- include('../partials/footer.ejs'); %>
+ 
+</body>
+<script src="/scripts/meuAprendizado.js"></script>
+
+</html>
