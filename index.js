@@ -4,6 +4,10 @@ const bodyParser = require("body-parser")
 const session = require("express-session")
 var router = require("./routes/routes")
 
+var PagesRouter = require("./routes/PagesRouter")
+
+
+
 
 /* var database = require("./database/database")
  */
@@ -42,7 +46,8 @@ app.use(session({
 app.use("/", UserController)
 app.use("/", InstrutorController)
 app.use("/", CursoController)
-app.use("/", router);
+app.use("/", router)
+app.use("/", PagesRouter)
 
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
@@ -68,11 +73,11 @@ const $ = jQuery(dom.window);
 
 
 app.get("/" , (req,res) =>{
-    req.session.user = {
+         req.session.user = {
         id: 1,
-        emai: "vivicogamerbr2@gmail.com",
+        email: "vivicogamerbr2@gmail.com",
         nome: "Gaiz lindoo"
-    }
+    }     
     const sessao = req.session.user
     var sessao1
     if(sessao == undefined){

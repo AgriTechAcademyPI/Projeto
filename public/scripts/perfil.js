@@ -76,7 +76,7 @@ $("#salvarPerfilUsuario").click(function(){
         title: "Perfil salvo com sucesso!!!",
         showConfirmButton: false,
         timer: 1500
-    }) 
+        }) 
    })
    .catch(function (error) {
        console.log('Erro ao atualizar o perfil:', error.response);

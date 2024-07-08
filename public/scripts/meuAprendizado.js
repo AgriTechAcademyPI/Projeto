@@ -1,6 +1,7 @@
 const elements = document.querySelectorAll('#descricaoP')
 const LIMITE = 130
 
+
 for (let p of elements) {
     const acimaLimite = p.innerText.length > LIMITE
     const pontosOuVazio = acimaLimite ? '...' : ''
@@ -62,11 +63,103 @@ function dropDownInstrutores() {
 }
 
 
+
+axios.get('/avaliacao/estatisticas/:idCurso' + 8)
+        .then(function(response){
+            if (response.length > 0) {
+                var avaliacaoUsuario = response[0]; 
+
+                $("#star3Label").html("teste")
+            } else {
+                // elementoAvaliacao.text('Este curso ainda não foi avaliado');
+            }
+        }).catch(function(err){
+            console.error('Erro ao obter avaliações do curso');
+        })
+
+
+
+
 animateProgressBar();
 dropDownCategorias();
 dropDownInstrutores();
 
+const searchWrapper = document.querySelector(".search-input");
+const inputBox = searchWrapper.querySelector("input");
+const suggBox = searchWrapper.querySelector(".autocom-box");
 
+let filteredCursos = [];
+
+inputBox.onkeyup = (e) => {
+  let userData = e.target.value;
+
+  if (userData) {
+    axios.get('/meuAprendizado/filtro')
+    .then(response => {
+      let cursos = response.data; // Ajuste conforme a estrutura do seu JSON de retorno
+      filteredCursos = [];
+
+      if (cursos) {
+        filteredCursos = cursos.filter(curso => {
+          return curso.titulo.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
+        });
+
+        let emptyArray = filteredCursos.map(curso => {
+          return `<li data-id="${curso.id}">${curso.titulo}</li>`;
+        });
+
+        searchWrapper.classList.add("active"); // Mostrar caixa de sugestão
+        showSuggestions(emptyArray);
+
+        let allList = suggBox.querySelectorAll("li");
+        allList.forEach(item => {
+          item.addEventListener("click", function() {
+            select(this);
+          });
+        });
+      } else {
+        searchWrapper.classList.remove("active"); // Esconder caixa de sugestão
+      }
+    })
+    .catch(error => {
+      console.error('Erro na requisição:', error);
+    });
+  } else {
+    searchWrapper.classList.remove("active"); // Esconder caixa de sugestão
+  }
+};
+
+let selectedId;
+
+const select = (element) => {
+  let selectData = element.textContent;
+  selectedId = element.dataset.id;
+  inputBox.value = selectData;
+
+  // Encontrar o curso selecionado a partir do ID
+  const selectedCurso = filteredCursos.find(curso => curso.id == selectedId);
+
+  if (selectedCurso) {
+    atualizarListaCursos([selectedCurso]);
+  } else {
+    console.error('Curso não encontrado.');
+  }
+
+/*   console.log('Selected:', selectData, selectedId);
+ */
+  searchWrapper.classList.remove("active"); // Esconder caixa de sugestão
+};
+
+const showSuggestions = (list) => {
+  let listData;
+  if (!list.length) {
+    userValue = inputBox.value;
+    listData = `<li>${userValue}</li>`;
+  } else {
+    listData = list.join('');
+  }
+  suggBox.innerHTML = listData;
+};
 
 
 $("#botaoBuscar").click(function(){
@@ -81,7 +174,7 @@ $("#botaoBuscar").click(function(){
     console.log(instrutor)
  */
 
-    let url = 'http://localhost:8080/meuAprendizado/filtro';
+    let url = '/meuAprendizado/filtro';
     let params = [];
 
     if (tipoOrdenacao) params.push(`tipoOrdenacao=${tipoOrdenacao}`);
@@ -104,16 +197,6 @@ $("#botaoBuscar").click(function(){
         });
     
     })
-
-      function requisicaoFiltros(tipoOrdenacao, categoria, instrutor){
-            axios.get(`http://localhost:8080/meuAprendizado/filtro?tipoOrdenacao=${tipoOrdenacao}&categoria=${categoria}&instrutor=${instrutor}`)
-        .then(function(response){
-            atualizarListaCursos(response.data);
-
-        }).catch(function(error){
-
-        })
-} 
 
 function atualizarListaCursos(cursos) {
     var elemento = document.getElementById('testeee');
@@ -162,16 +245,247 @@ function atualizarListaCursos(cursos) {
         </div>
      </div>`;
 
-    elemento.appendChild(cursoElement)
+     elemento.appendChild(cursoElement)
             
-        });
+    });
 
-    
 }
 
+$("#botaoRedefinir").click(function(){
+    $("#filtroCursoOrdem").val(0)
+    $("#selectCategorias").val(0)
+    $("#selectProgresso").val(0)
+    $("#selectInstrutores").val(0)
+    $("#botaoBuscar").click()
+    $("#inputNome").val("")
+
+    $('#myModal').modal('show');
+
+})
+
+
+    const stars = document.querySelectorAll('.stars label');
+    const ratingValue = document.getElementById('rating');
+    var avaliacao 
+
+    stars.forEach(star => {
+      star.addEventListener('mouseover', () => {
+        const input = document.getElementById(star.getAttribute('for'));
+        avaliacaoCurso(input.value)
+      });
+
+      star.addEventListener('mouseleave', () => {
+        const checkedStar = document.querySelector('.stars input:checked');
+        if (checkedStar) {
+            avaliacaoCurso(checkedStar.value);
+          } else {
+            ratingValue.textContent = ""; 
+          }
+      });
+
+      star.addEventListener('click', () => {
+        const input = document.getElementById(star.getAttribute('for'));
+        input.checked = true;
+      });
+    });
 
 
 
-        
+$(".avaliacao").click(function(){
+    var idCurso = $(this).attr('id-curso')
+    $("#idCurso").val(idCurso)
+
+    axios.get("/curso/avaliacao/usuario/"+idCurso)
+    .then(function(response){
+      if(response.data.length > 0){
+        $("#cadastrarAvaliacao").html("Editar Avaliação")
+        var avaliacaoUsuario = response.data[0]
+        avaliacaoCurso(avaliacaoUsuario.avaliacao.toString())
+        $('#comentarioAvaliacao').val(avaliacaoUsuario.comentarioAvaliacao)
 
 
+      }else{
+        $("#cadastrarAvaliacao").html("Enviar Avaliação")
+        $('#comentarioAvaliacao').val("")
+        limparAvaliacao()
+        console.log(response.data)
+
+      }
+    })
+    .catch(function(err){
+        console.log(err)
+    })
+})
+
+$("#cadastrarAvaliacao").click(function(){
+
+    var dadosAvaliacao = {
+        idCurso: $("#idCurso").val() ,
+        avaliacao: avaliacao,
+        comentarioAvaliacao: $('#comentarioAvaliacao').val(),
+        dataAvaliacao:dataCompletaIso() ,
+        statusAvaliacao: 1 ,  
+    }
+
+    var condicao
+
+    if(dadosAvaliacao.avaliacao == null){
+        condicao = false
+    }else{
+        condicao = true
+    }
+
+    if(condicao){
+     axios.post("/curso/avaliacao", dadosAvaliacao)
+     .then(function(response){
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Sucesso!!!",
+            text:"Avaliação feita com sucesso",
+            showConfirmButton: false,
+            timer: 1500
+        })
+        $("#fecharModalAvaliacao").click()
+     }).catch(function(error){
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Erro!!!",
+            text:"Houve um erro ao fazer a avaliação. Tente novamente mais tarde.",
+            showConfirmButton: false,
+            timer: 1500
+        })
+        console.log(error)
+     })
+    }else{
+        Swal.fire({
+            position: "top-end",
+            icon: "warning",
+            title: "Alerta!!!",
+            text:"Preencha todos os campos para fazer a avaliação!!",
+            showConfirmButton: false,
+            timer: 1500
+        })  
+    }
+    })
+
+    /* $(document).ready(function() {
+        // Itera sobre cada curso na página
+        $('.avaliacao').each(function() {
+            var idCurso = $(this).attr('id-curso');
+    
+            axios.get('/avaliacao/estatisticas/' + idCurso)
+                .then(function(response) {
+                    if (response.data && response.data.mediaNotas) {
+                        var valorAvaliacao = response.data.mediaNotas;
+    
+                        // Seleciona a estrela correspondente ao valor da avaliação
+                        var inputId = '#star' + valorAvaliacao + 'Lista-' + idCurso;
+                        $(inputId).prop('checked', true);
+    
+                    } else {
+                        console.log('Não foram encontradas estatísticas para o curso com ID:', idCurso);
+                    }
+                })
+                .catch(function(error) {
+                    // Trate erros se a requisição falhar
+                    console.error('Erro ao obter estatísticas das avaliações do curso com ID:', idCurso, error);
+                });
+        });
+    });
+    
+    
+    
+    
+    // Função para marcar dinamicamente as estrelas de avaliação
+    function marcarEstrelas(valorAvaliacao, idCurso) {
+        if(valorAvaliacao == 1){
+            const input = document.getElementById(("star5Lista-"+idCurso))
+            input.checked = true
+        }
+
+        if(valorAvaliacao == 2){
+            const input = document.getElementById(("star4Lista-"+idCurso))
+            input.checked = true
+        }
+
+        if(valorAvaliacao == 3){
+            const input = document.getElementById(("star3Lista-"+idCurso))
+            input.checked = true
+        }
+
+        if(valorAvaliacao == 4){
+            const input = document.getElementById(("star2Lista-"+idCurso))
+            input.checked = true
+        }
+
+        if(valorAvaliacao == 5){
+            const input = document.getElementById(("star1Lista-"+idCurso))
+            input.checked = true
+        }
+    
+    }  */
+    
+
+
+function dataCompletaIso(){
+    
+    var dataAtual = new Date();
+
+    var ano = dataAtual.getFullYear(); 
+    var mes = dataAtual.getMonth() + 1; 
+    var dia = dataAtual.getDate(); 
+
+    var diaStr = dia.toString().padStart(2, '0');
+    var mesStr = mes.toString().padStart(2, '0');
+
+    var dataCompletaIso = ano + "-" + mes + "-" + dia;
+
+    return dataCompletaIso
+}
+
+function avaliacaoCurso(valor){
+    switch(valor){
+        case "1":
+            ratingValue.textContent = "Não gostei nem um pouco" 
+            avaliacao = 1
+            break
+        case "2":
+            ratingValue.textContent = "Não gostei" 
+            avaliacao = 2
+            break
+        case "3":
+            ratingValue.textContent = "Acho que poderia melhorar em alguns pontos" 
+            avaliacao = 3
+            break
+        case "4":
+            ratingValue.textContent = "Gostei" 
+            avaliacao = 4
+            break
+        case "5":
+            ratingValue.textContent = "Gostei muito, excelente" 
+            avaliacao = 5
+            break
+    }
+
+    stars.forEach(star => {
+        const input = document.getElementById(star.getAttribute('for'));
+        if (input.value == valor) {
+            input.checked = true;
+        } else {
+            input.checked = false;
+        }
+    });
+
+}
+
+function limparAvaliacao() {
+    stars.forEach(star => {
+        const input = document.getElementById(star.getAttribute('for'));
+        input.checked = false;
+    });
+
+    ratingValue.textContent = "";
+    avaliacao = null;
+}

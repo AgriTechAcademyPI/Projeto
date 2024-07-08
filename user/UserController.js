@@ -8,35 +8,57 @@ router.get("/cadastro", (req, res) => {
 
 })
 
-router.post("/cadastrar/usuario", (req, res) =>{
-    var nomeUsuario = req.body.nomeUsuario
-    var emailUsuario = req.body.emailUsuario
-    var senhaUsuario = req.body.senhaUsuario
 
-    database.select().where({email: emailUsuario}).table("usuarios").first().then(user =>{
-        console.log(user)
-        if(!user){
-            var salt = bcrypt.genSaltSync(10)
-            var hash = bcrypt.hashSync(senhaUsuario, salt)
+router.post("/cadastrar/usuario", (req, res) => {
+    const nomeUsuario = req.body.nomeUsuario;
+    const emailUsuario = req.body.emailUsuario;
+    const senhaUsuario = req.body.senhaUsuario;
 
-          database.insert([
-            {nomeUsuario: nomeUsuario,
-            email: emailUsuario,
-            senha: hash
-            }]).into("usuarios")
-            .then(() =>{
-                res.redirect("/")
-            }).catch((err) =>{
-                res.redirect("/f")
+    database.select().where({ email: emailUsuario }).table("usuarios").first()
+    .then(user => {
+        if (!user) {
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(senhaUsuario, salt);
+
+            database.insert({
+                nomeUsuario: nomeUsuario,
+                email: emailUsuario,
+                senha: hash
+            }).into("usuarios")
+            .then(() => {
+                return database.select().where({ email: emailUsuario }).table("usuarios").first();
             })
-        }else{
-             res.send("email ja cadastrado") 
+            .then(newUser => {
+                if (newUser) {
+                    const validacaoDeSenha = bcrypt.compareSync(senhaUsuario, newUser.senha);
+                    if (validacaoDeSenha) {
+                        req.session.user = {
+                            id: newUser.id,
+                            email: newUser.email,
+                            nome: newUser.nomeUsuario
+                        };
+                        res.redirect("/");
+                    } else {
+                        res.send("Senha errada");
+                    }
+                } else {
+                    res.send("Email não cadastrado");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                res.redirect("/f");
+            });
+        } else {
+            res.send("Email já cadastrado");
         }
-    }).catch(err =>{
-        console.log(err)
     })
+    .catch(err => {
+        console.log(err);
+        res.redirect("/f");
+    });
+});
 
-})
 
 router.get("/login", (req, res) =>{
     res.render("login/login.ejs")

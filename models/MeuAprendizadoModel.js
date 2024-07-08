@@ -21,58 +21,58 @@ class MeuAprendizado{
     async cursos(id, tipoOrdenacao, categoria, instrutor, progresso){
         
         try {
-            var result =  
-                knex.select("cursos.*",
-                              "instrutores.nomeCompleto as nomeInstrutor",
-                              "cursos_usuarios.ultimoAcesso",
-                              "cursos_usuarios.dataAquisicao",
-                              "cursos.idCategoria",
-                              "cursos.idInstrutor",
-                              "cursos.titulo",
-                              "cursos_usuarios.statusCurso"
-                              
-             ).table("cursos_usuarios")
+            var result = knex.select(
+                "cursos.*",
+                "instrutores.nomeCompleto as nomeInstrutor",
+                "cursos_usuarios.ultimoAcesso",
+                "cursos_usuarios.dataAquisicao",
+                "cursos.idCategoria",
+                "cursos.idInstrutor",
+                "cursos.titulo",
+                "cursos_usuarios.statusCurso",
+                knex.raw("(SELECT AVG(avaliacoes_curso.avaliacao) FROM avaliacoes_curso WHERE avaliacoes_curso.idCurso = cursos.id) as mediaAvaliacoes")
+            )
+            .table("cursos_usuarios")
             .innerJoin("cursos", "cursos.id", "cursos_usuarios.idCurso")
             .innerJoin("usuarios", "usuarios.id", "cursos_usuarios.idUsuario")
-            .innerJoin("instrutores", "instrutores.id", "cursos.idInstrutor" )
-            .where("cursos_usuarios.idUsuario",id)
-
+            .innerJoin("instrutores", "instrutores.id", "cursos.idInstrutor")
+            .where("cursos_usuarios.idUsuario", id);
+        
             if (categoria && categoria != 0) {
                 result = result.andWhere("cursos.idCategoria", categoria);
             }
-
+        
             if (instrutor && instrutor != 0) {
                 result = result.andWhere("cursos.idInstrutor", instrutor);
             }
-
+        
             if (progresso && progresso != 0) {
                 result = result.andWhere("cursos_usuarios.statusCurso", progresso);
             }
-
-
-            if(tipoOrdenacao == 1){
-                result = result.orderBy("cursos_usuarios.ultimoAcesso", "desc")
+        
+            if (tipoOrdenacao == 0) {
+                result = result.orderBy("cursos_usuarios.ultimoAcesso", "desc");
             }
-
-            if(tipoOrdenacao == 2){
-                result = result.orderBy("cursos_usuarios.dataAquisicao", "desc")
-                
+        
+            if (tipoOrdenacao == 1) {
+                result = result.orderBy("cursos_usuarios.dataAquisicao", "desc");
             }
-            if(tipoOrdenacao == 3){
-                result = result.orderBy("cursos.titulo", "asc")
-
+        
+            if (tipoOrdenacao == 2) {
+                result = result.orderBy("cursos.titulo", "asc");
             }
-            if(tipoOrdenacao == 4){
-                result = result.orderBy("cursos.titulo", "desc")
-
+        
+            if (tipoOrdenacao == 3) {
+                result = result.orderBy("cursos.titulo", "desc");
             }
-
-            const query = await result
-            return query
-         } catch (err) {
-           console.log(err)  
-           return []
-         }
+        
+            const query = await result;
+            return query;
+        } catch (err) {
+            console.log(err);
+            return [];
+        }
+        
     }
 
     async listaInstrutoresCursosUsuarios(idUsuario){
@@ -91,6 +91,21 @@ class MeuAprendizado{
             console.log(error)  
             return []
         }
+    }
+
+    async validaSeUsuarioJaPossuiCurso(idUsuario, idCurso){
+        try {
+            var result = await knex.select("cursos_usuarios.*").table("cursos_usuarios")
+            .where("cursos_usuarios.idUsuario", idUsuario)
+            .andWhere("cursos_usuarios.idCurso", idCurso)
+            .first()
+
+            return result
+        } catch (error) {
+            console.log(error)  
+            return []
+        }
+
     }
 
 }

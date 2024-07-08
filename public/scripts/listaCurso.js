@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 $("#requisitosModal").html(curso.requisitos);
                 $("#descricaoCompletaModal").html(curso.descricao);
                 $("#conteudoAprendizadoModal").html(curso.conteudoAprendizado);
-                $("#informacoesConteudoCursoModal").html(`${curso.totalAulasCurso} aulas • Duração total: ${curso.duracaoTotalCurso} horas`)
+                $("#informacoesConteudoCursoModal").html(`${curso.totalAulasCurso} aulas • Duração total: ${curso.duracaoTotalCurso ? curso.duracaoTotalCurso : 0} horas`)
 
             }).catch(function(error){
                 console.log("Erro ao carregar o ver mais"+ error)
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         cancelButtonText: "Não"
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = 'http://localhost:8080/meuaprendizado';
+                            window.location.href = 'http://localhost:8080/meu-aprendizado';
 
                         }
                       });

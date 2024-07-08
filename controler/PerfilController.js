@@ -70,7 +70,7 @@ class PerfilController{
             }
         }else{
             res.status(406)
-                res.send("usuario nao encontrado")
+            res.send("usuario nao encontrado")
             
         }  
       }else{

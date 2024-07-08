@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+/* css pagina listagem de cursos */
+.monomaniac-one-regular {
+    font-family: "Monomaniac One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
 .container h1{
     color: #FF9F1C;
     font-family: "Monomaniac One", sans-serif;
@@ -8,11 +18,11 @@
 #cabecalho{
     background-color: #d9d9d956;
     padding-bottom: 30px;
-}
+} 
 
 
 .nav-links{
-    display: flex;
+    display: flex; 
     align-items: center;
     padding: 10px 15px;
     border-radius: 12px;
@@ -84,8 +94,10 @@
 }
 
 .plantacao{
+  padding-top: 25px;
   background-color: #d9d9d956;
-}
+  margin-bottom: 30px;
+} 
 
 #cursos .containerPlantacaoDentro{
   height: 300px;
@@ -151,4 +163,131 @@
 #cursos .avaliacao{
   margin-top: 5px;
   text-align: center;
+}
+
+
+::selection{
+  color: #fff;
+  background: #664AFF;
+  }
+
+  .wrapperSearch{
+  max-width: 450px;
+  margin: 5px auto;
+  }
+
+  .wrapperSearch .search-input{
+  background: #fff;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  
+  }
+  .search-input input{
+  height: 45px;
+  width: 120%;
+  outline: none;
+  border: solid 0.5px #d9d9d9;
+  border-radius: 5px;
+  padding: 0 60px 0 20px;
+  font-size: 15px;
+  }
+  .search-input.active input{
+  border-radius: 5px 5px 5px 5px;
+  }
+  .search-input .autocom-box{
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  max-height: 220px;
+  overflow-y: auto;
+  }
+  .search-input.active .autocom-box{
+  padding: 10px 8px;
+  opacity: 1;
+  pointer-events: auto;
+  }
+  .autocom-box li{
+  list-style: none;
+  padding: 8px 12px;
+  display: none;
+  width: 100%;
+  cursor: default;
+  border-radius: 3px;
+  }
+  .search-input.active .autocom-box li{
+  display: block;
+  }
+  .autocom-box li:hover{
+  background: #efefef;
+  }
+
+
+#avaliacao:hover{
+  font-size: 14px;
+  color: #8bc34a;
+}
+
+
+.stars {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+.stars input {
+  display: none;
+}
+.stars label {
+  font-size: 2em;
+  color: #ddd;
+  cursor: pointer;
+}
+.stars input:checked ~ label {
+  color: #ffc700;
+}
+.stars input:hover ~ label {
+  color: #ffdd00;
+}
+.stars label:hover ~ label {
+  color: #ffdd00;
+}
+
+.modal-content h2{
+  margin-bottom: 10px;
+  color: #FF9F1C;
+}
+
+.modal-content h6{
+  margin-bottom: 0px;
+}
+
+#comentarioAvaliacao{
+  width: 60%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.starsLista {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  margin-top: -10px;
+  margin-left: 25px;
+}
+.starsLista input {
+  display: none;
+}
+.starsLista label {
+  font-size: 2em;
+  color: #ddd;
+  cursor: pointer;
+}
+.starsLista input:checked ~ label {
+  color: #ffc700;
+}
+.starsLista input:hover ~ label {
+  color: #ffdd00;
+}
+.starsLista label:hover ~ label {
+  color: #ffdd00;
 }

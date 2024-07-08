@@ -1,16 +1,23 @@
 const express = require("express")
 const router = express.Router()
 const database = require("../database/database")
+var page = require("../models/navBarModel")
+var Curso = require("../models/CursoModel")
+var Middleware = require("../controler/Middleware")
 
-router.get("/cadastro/curso", (req, res) => {
+
+
+router.get("/cadastro/curso/:idCurso?",Middleware.AutenticacaoInstrutor, (req, res) => {
     if (req.session.user != undefined) {
-        idUsuarioSession = req.session.user.id
-
+        var idUsuarioSession = req.session.user.id
+        var nomeUsuarioSession = req.session.user.nome
+        var tela = "cadastrar-curso"
+        
          database.select().table("categorias").then(categorias =>{
          database.select(["usuarios.nomeUsuario as nomeUsuario", "instrutores.id as idInstrutor", "usuarios.id as idUsuario" ])
          .table("usuarios")
          .innerJoin("instrutores", "instrutores.idUsuario", "usuarios.id").where("usuarios.id", idUsuarioSession).first().then(instrutor =>{
-            res.render("curso/criarCurso.ejs", {instrutor: instrutor, categorias: categorias })
+            res.render("curso/criarCurso.ejs", {instrutor: instrutor, categorias: categorias,  })
 
 
          }).catch(err =>{
@@ -20,40 +27,6 @@ router.get("/cadastro/curso", (req, res) => {
             console.log("usuarios" + err)
         })
     }
-
-})
-
-router.post("/cadastrarCurso", (req, res) => {
-    const tituloCurso = req.body.tituloCurso
-    const descricaoCurso = req.body.descricaoCurso
-    const precoCurso = req.body.precoCurso
-    const instrutorCurso = req.body.instrutorCurso
-    const imagem = req.body.imagemCurso
-    const categoria = req.body.categoria
-    const link = req.body.linkCurso
-    const tituloAulaCurso = req.body.tituloAulaCurso
-    const descricaoAulaCurso = req.body.descricaoAulaCurso
-    const duracaoAulaCurso = req.body.duracaoAulaCurso
-    const dataCriacaoCurso = req.body.dataCriacaoCurso
-
-
-    database.insert({
-        titulo: tituloCurso,
-        descricao: descricaoCurso,
-        preco: precoCurso,
-        idInstrutor: instrutorCurso,
-        imagemCurso: imagem,
-        linkCurso: link,
-        idCategoria: categoria,
-        tituloAulaCurso: tituloAulaCurso,
-        descricaoAulaCurso: descricaoAulaCurso, 
-        duracaoAulaCurso: duracaoAulaCurso, 
-        dataCriacaoCurso: dataCriacaoCurso}).table("cursos").then(()=>{
-            res.redirect("/cursos")
-
-        }).catch(err =>{
-            console.log(err)
-        })
 
 })
 
@@ -135,12 +108,15 @@ router.get("/cursos", (req, res) => {
     if (req.session.user != undefined) {
         const idUsuarioSession = req.session.user.id
         const nomeUsuarioSession = req.session.user.nome
-
-        database.select().table("cursos").then(cursos =>{
+        var tela = "cursos"
+        
+        database.select("cursos.*", "instrutores.nomeCompleto").table("cursos")
+        .innerJoin("instrutores" ,"cursos.idInstrutor", "instrutores.id").then(cursos =>{
             database.select().table("usuarios").where("id", idUsuarioSession).first().then(usuario =>{
                 database.select().table("categorias").then(categorias =>{
+                    
                     var sessao = 1
-                    res.render("curso/listasCursos2.ejs", { cursos: cursos, usuario: usuario, sessao: sessao, categorias: categorias, nomeUsuarioSession:nomeUsuarioSession })
+                    res.render("curso/listasCursos.ejs", { cursos: cursos, usuario: usuario, sessao: sessao, categorias: categorias, nomeUsuarioSession:nomeUsuarioSession, tela:tela })
                 }).catch(err =>{
                     console.log("categorias erro" + err)
                 })
@@ -158,7 +134,7 @@ router.get("/cursos", (req, res) => {
         database.select().table("cursos").then(cursos =>{
             database.select().table("categorias").then(categorias =>{
                 var sessao = 0
-                res.render("curso/listasCursos2.ejs", { cursos: cursos, sessao: sessao, categorias: categorias })
+                res.render("curso/listasCursos.ejs", { cursos: cursos, sessao: sessao, categorias: categorias ,tela:tela})
 
             }).catch(err =>{
                 console.log("categorias 2 err" + err)
@@ -170,64 +146,7 @@ router.get("/cursos", (req, res) => {
     }
 })
 
-router.get("/cursos/:categoria", (req, res)=>{
-    const categoria = req.params.categoria
-    if (req.session.user != undefined) {
-        const idUsuarioSession = req.session.user.id
-
-        database.select("cursos.titulo as tituloCurso", "cursos.descricao as descricaoCurso", 
-        "cursos.preco as precoCurso","cursos.imagemCurso as imagemCurso", "categorias.title as tituloCategoria")
-        .table("cursos")
-        .innerJoin("categorias", "categorias.id", "cursos.idCategoria")
-        .where("categorias.title", categoria).then(cursos =>{
-            database.select().table("usuarios").where("id", idUsuarioSession).first().then(usuario =>{
-                database.select().table("categorias").then(categorias =>{
-                    var sessao = 1
-            res.render("curso/listaCursoFiltrado.ejs", { cursos: cursos, usuario: usuario, sessao: sessao, categorias:categorias})
-
-                }).catch(err =>{
-                    console.log("categorias erro" + err)
-                })
-
-            }).catch(err =>{
-                console.log("usuario erro" + err)
-            })
-
-        }).catch(err =>{
-            console.log("cursos erro" + err)
-        })
-
-
-    } else if(req.session.user == undefined) {
-
-        database.select("cursos.titulo as tituloCurso", "cursos.descricao as descricaoCurso", 
-        "cursos.preco as precoCurso","cursos.imagemCurso as imagemCurso", "categorias.title as tituloCategoria")
-        .table("cursos")
-        .innerJoin("categorias", "categorias.id", "cursos.idCategoria")
-        .where("categorias.title", categoria).then(cursos =>{
-            database.select().table("categorias").then(categorias =>{
-                var sessao = 0
-                res.render("curso/listaCursoFiltrado.ejs", { cursos: cursos, sessao: sessao, categorias: categorias })
-            }).catch(err =>{
-                console.log("Categorias err" + err)
-            })
-
-        }).catch(err =>{
-            console.log("cursos err" + err)
-        })
-        
-    }
-
-})
-
-router.post("/filtrarCursos",(req, res) =>{
-    const idCategoria = req.body.categorias
-    res.redirect("/cursos/"+ idCategoria)
-
-
-})
-
-router.get("/curso/meuscursos", (req, res) =>{
+router.get("/cursos/meuscursos", (req, res) =>{
     const idUsuarioSession = req.session.user.id
 
     database.select().table("cursos")
@@ -265,7 +184,7 @@ router.get("/curso/cadastraraula/:nomeCurso", (req, res) =>{
 })
 
 
-router.post("/adicionarAula", (req, res) =>{
+/* router.post("/adicionarAula", (req, res) =>{
     var tituloAula = req.body.tituloAula
     var idCurso = req.body.idCurso
     var descricaoAula = req.body.descricaoAula
@@ -289,7 +208,7 @@ router.post("/adicionarAula", (req, res) =>{
     })
 
 
-})
+}) */
 
 router.get("/assistir/:tituloCurso/:tituloAula", (req, res) =>{
     var tituloCurso = req.params.tituloCurso

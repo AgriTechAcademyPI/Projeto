@@ -5,378 +5,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Curso</title>
-</head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-    }
-
-    .content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .content>div {
-        flex: 1;
-        padding: 10px;
-    }
-
-    nav {
-        display: flex;
-    }
-
-    .home:focus,
-    .cursos:focus,
-    .sobre:focus,
-    .contatos:focus,
-    .servicos:focus {
-        color: #FF9F1C;
-    }
-
-    header {
-        width: 1280px;
-        height: 94px;
-        flex-shrink: 0;
-        background: transparent;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-family: 'Cairo', sans-serif
-    }
-
-    header img {
-        width: 78px;
-        height: 78px;
-        border-radius: 44px;
-        background: url('<path-to-image>'), lightgray 50% / cover no-repeat;
-    }
-
-    .home,
-    .cursos,
-    .sobre,
-    .contatos,
-    .servicos {
-        width: 96px;
-        height: 35px;
-        flex-shrink: 0;
-        color: #539B2D;
-        font-family: Cairo;
-        font-size: 22px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-    }
-
-    /* Botões de login e cadastro */
-    .login {
-        width: 124px;
-        height: 39px;
-        flex-shrink: 0;
-        background: #FF9F1C;
-        color: #FFF;
-        text-align: center;
-        font-size: 30px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        border: none;
-    }
-
-    .cadastre-se {
-        display: flex;
-        width: 138px;
-        height: 39px;
-        background: #FF9F1C;
-        flex-direction: column;
-        justify-content: center;
-        flex-shrink: 0;
-        color: #FFF;
-        text-align: center;
-        font-family: Cairo;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        border: none;
-    }
-
-    body {
-        font-family: 'Cairo', sans-serif;
-        /* Fonte do corpo do documento */
-        width: 1280px;
-        height: 832px;
-        flex-shrink: 0;
-        background-size: cover;
-        background-position: center;
-        transition: background-image 2s ease-in-out;
-    }
-
-    header {
-        width: 1280px;
-        height: 94px;
-        flex-shrink: 0;
-        background: transparent;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-family: 'Cairo', sans-serif
-    }
-
-    header img {
-        width: 78px;
-        height: 78px;
-        border-radius: 44px;
-        background: url('<path-to-image>'), lightgray 50% / cover no-repeat;
-    }
-
-    /* Títulos ao lado do logo */
-    .titulo {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .titulo1,
-    .titulo2 {
-        flex-shrink: 0;
-        font-family: 'Cairo', sans-serif;
-        font-size: 36px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-    }
-
-    .titulo1 {
-        color: #539B2D;
-        width: 183px;
-        height: 83px;
-
-    }
-
-    .titulo2 {
-        color: #FF9F1C;
-        width: 183px;
-        height: 83px;
-        margin-bottom: 0px;
-        margin-left: 0px;
-    }
-
-    .endereco {
-        color: #539B2D;
-        text-align: center;
-        font-family: Cairo;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-    }
-
-    .mens {
-        border-radius: 100px;
-        border: 1px solid #FF9F1C;
-        background: #D9D9D9;
-    }
-
-    .botao {
-        border-radius: 100px;
-        border: 1px solid #FF9F1C;
-        background: #D9D9D9;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-        width: 209px;
-        height: 46px;
-        flex-shrink: 0;
-    }
-
-    .imgc {
-        border-radius: 100px;
-        border: 1px solid #FF9F1C;
-        background: #D9D9D9;
-        width: 285px;
-        height: 127px;
-        flex-shrink: 0;
-    }
-
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
-
-    h1 {
-        color: #539B2D;
-        text-align: center;
-        margin-top: 50px;
-    }
-
-    form {
-        width: 500px;
-        margin: 0 auto;
-    }
-
-    label {
-        display: block;
-        margin: 10px 0;
-        color: #539B2D;
-        text-align: center;
-    }
-
-    input,
-    select {
-        width: 100%;
-        padding: 10px;
-        border: 2px solid #FF9F1C;
-        border-radius: 5px;
-        text-align: center;
-    }
-
-    .btn {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        margin-top: 20px;
-    }
-
-    .btn:hover {
-        background-color: #218838;
-    }
-
-    .card {
-        width: 1100px;
-        height: 100%;
-        flex-shrink: 0;
-        border-radius: 105px;
-        opacity: 0.85;
-        background: #FFF;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-        padding-bottom: 30px;
-    }
-
-    .container {
-        width: 100vw;
-        display: flex;
-        justify-content: center;
-        margin-top: 50px;
-    }
-
-
-    .voltarHome {
-        width: 300px;
-        padding: 10px;
-        border-radius: 5px;
-        border: 2px solid #FF9F1C;
-        margin: 18px 0px 0px 10px;
-        text-decoration: none;
-        color: black;
-        text-align: center;
-    }
-    
-    #descricaoCurso{
-        height: 100px;
-        text-align: center;
-        
-    }
-
-  
-</style>
+    <link rel="stylesheet" href="/css/criarCurso.css">
 </head>
 
 <body>
-
+    <%- include('../partials/navbarMeuAprendizado.ejs'); %>
 
     <div class="container">
-        <div class="card">
-            <h1>Cadastrar Curso</h1>
-            <form action="/cadastrarCurso" method="post">
-                <label class="endereco">Titulo:</label>
-                <input type="text" placeholder="" value="" name="tituloCurso" class="mens">
+        <div class="card"> 
 
-                <label>Descricao:</label>
-                <input type="text" placeholder="" value="" name="descricaoCurso" id="descricaoCurso">
 
-                <label>Preço:</label>
-                <input type="number" placeholder="" value="" name="precoCurso">
+                <div class="row">
+                <div class="col-12 col-lg-6">
+                    <h2>Cadastrar Curso</h2>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="tituloCurso">Título:</label>
+                            <input type="text" class="form-control" id="tituloCurso" name="tituloCurso">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="categoria">Categoria:</label>
+                            <select name="categoria" id="categoriaCurso" class="form-control">
+                                <% categorias.forEach((categoria) => { %>
+                                    <option value="<%= categoria.id %>"><%= categoria.title %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="instrutor">Instrutor:</label>
+                            <input type="text" class="form-control" placeholder="<%= instrutor.nomeUsuario %>" disabled>
+                            <input type="hidden" id="instrutorCurso" value="<%= instrutor.idInstrutor %>" name="instrutorCurso">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="imagemCurso">Imagem:</label>
+                            <input type="text" class="form-control" id="imagemCurso" name="imagemCurso" placeholder="Link da imagem do curso">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="descricaoCurso">Descrição:</label>
+                            <textarea  class="form-control" id="descricaoCurso" name="descricaoCurso"> </textarea>
+                        </div>
+                    </div>
 
-                <label>Instrutor:</label>
-                <input type="number" placeholder="<%= instrutor.nomeUsuario %>" disabled>
-                <input type="hidden" value="<%= instrutor.idInstrutor %>" name="instrutorCurso">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="requisitosCurso">Requisitos:</label>
+                            <textarea class="form-control" id="requisitosCurso" name="requisitosCurso"></textarea>
+                        </div>
+                    </div>
 
-                <label>Categoria:</label>
-                <select name="categoria" class="form-control">
-                    <% categorias.forEach((categoria)=> { %>
-                        <option name="categoria" value="<%= categoria.id %>">
-                            <%= categoria.title %>
-                        </option>
-                        <% }) %>
-                </select>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="conteudoCurso">Conteúdo:</label>
+                            <input type="text" class="form-control" id="conteudoCurso" name="conteudoCurso">
+                        </div>
+                    </div>
+                </div>
 
-                <label>Imagem:</label>
-                <input type="text" placeholder="" value="" name="imagemCurso">
+                <div class="col-12 col-lg-6">
+                    <h2>Cadastre seu vídeo de apresentação</h2>
                 
-                <h2> Cadastre a sua primeira aula</h2>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="descricaoAulaCurso">Mini descrição do curso:</label>
+                        <textarea type="text" class="form-control" id="miniDescricaoCurso" name="descricaoAulaCurso"> </textarea>  
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="form-group col-md-8">
+                        <label for="linkCurso">Link do Vídeo:</label>
+                        <input type="text" class="form-control" id="linkCurso" name="linkCurso" placeholder="Cole aqui o link do vídeo">
+                    </div>
 
-                <label>Título da Aula</label>
-                <input type="text" value="" name="tituloAulaCurso">
-
-                <label>Descrição da Aula</label>
-                <input type="text" value="" name="descricaoAulaCurso">
-
-                <label>Duração da Aula</label>
-                <input type="text" value="" name="duracaoAulaCurso">
-
-                <label>Link do Vídeo</label>
-                <input type="text" placeholder="Cole aqui o link do vídeo" value="" name="linkCurso">
-
-                <label>Data de Criação</label>
-                <input type="text" value="" name="dataCriacao" id="dataCriacaoCurso">
-
-                
-
-                <div style="display:flex ;">
-                    <button class="btn btn-success">Cadastrar</button>
-                    <a class="voltarHome" href="/">Retornar a Home</a>
-
+                    <div class="form-group col-md-4">
+                        <label for="dataCriacaoCurso">Data de Criação:</label>
+                        <input type="text" class="form-control" id="dataCriacaoCurso" name="dataCriacao" disabled>
+                    </div>
                 </div>
                 
+                
+               
+            </div>
+            </div>
 
+            <div class="row">
+                <div class="form-group col">
+                    <button id="cadastrarCurso" class="btn btn-success">Cadastrar</button>
+                    <button id="atualizarCurso" style="display: none;" class="btn btn-success">Atualizar</button>
 
-            </form>
+                </div>
+                <div class="form-group col">
+                    <a class="btn btn-danger" href="/">Retornar a Home</a>
+                </div>
+            </div>
+                    
         </div>
     </div>
+
+
+    <%- include('../partials/footer.ejs'); %>
+
 </body>
+<script src="/tinymce/js/tinymce/tinymce.min.js"></script>
+<script src="/scripts/criarCurso.js"></script>
 
-<script>
-    var dataAtual = new Date();
-
-    var ano = dataAtual.getFullYear(); 
-    var mes = dataAtual.getMonth() + 1; 
-    var dia = dataAtual.getDate(); 
-
-    var dataCompleta = ano + "-" + mes + "-" + dia;
-
-    document.addEventListener('DOMContentLoaded', function(){
-
-        var dataCriacao = document.getElementById('dataCriacao');
-
-        dataCriacao.value = dataCompleta
-        dataCriacao.placeholder = dataCompleta
-
-
-
-    })
-
-
-
-</script>
 
 </html>
