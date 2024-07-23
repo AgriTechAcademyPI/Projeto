@@ -1,5 +1,6 @@
 var Curso = require("../models/CursoModel")
-
+var Perfil = require("../models/PerfilModel")
+var Categoria = require("../models/CategoriasModel")
 
 class CursoController{
     async informacoesCurso(req,res){
@@ -96,7 +97,6 @@ class CursoController{
     async exibirGerenciarMeusCursos(req,res){
         var idUsuario = req.session.user.id
         var tela = "gerenciar-cursos"
-        var nomeUsuarioSession  = req.session.user.nome
         
         if(idUsuario == undefined){
             return res.status(403).send("Usuário não logado");
@@ -106,8 +106,9 @@ class CursoController{
                 return res.status(400).send("Usuário não é um instrutor");
  
             }else{
+                var usuario = await Perfil.findPerfilUsuarioByID(idUsuario)
                 var cursos = await Curso.cursosInstrutorGerenciar(instrutor.id)
-                res.render("curso/gerenciarMeusCursos.ejs", {cursos:cursos, tela:tela, nomeUsuarioSession:nomeUsuarioSession})
+                res.render("curso/gerenciarMeusCursos.ejs", {cursos:cursos, tela:tela, usuario: usuario })
             }
            
         }
@@ -402,7 +403,178 @@ async editarCurso(req, res) {
         console.error("Erro ao alterar o curso:", error);
         return res.status(500).send("Erro interno do servidor");
     }
-}   
+}
+
+async listaTodasAulasCursos (req, res){
+    try {
+        var idCurso = req.params.idCurso
+
+        if(idCurso == undefined){
+            return res.status(403).send("É necessário passar um id de curso na requisição." )
+    
+        }
+
+        var result = await Curso.listaTodasAulasCursos(idCurso) 
+
+        if(result == undefined){
+            return res.status(403).send("Houve um erro ao procurar pelas aulas deste curso.")
+
+        }else{
+            return res.json(result)
+        }
+        
+    } catch (error) {
+        return res.status(500).send("Houve um erro interno no servidor ao buscar pelas aulas deste curso.")
+
+    }
+}
+
+async assistirCurso(req, res){
+   
+    try {
+        var nomeCurso = req.params.nomeCurso
+        var curso = await Curso.buscaCursoCompletoAssistir(nomeCurso) 
+        var aulas = await Curso.aulasCursoAssistir(nomeCurso) 
+        var progresso = await Curso.progressoCursoAssistir(nomeCurso) 
+        
+        res.render("curso/assistirCurso.ejs", { curso: curso, aulas: aulas, progresso: progresso });
+    } catch (error) {
+        console.log(error)
+        return
+    }
+}
+
+async assistirAula(req, res){
+
+    try {
+        var tituloCurso = req.params.nomeCurso
+        var tituloAula = req.params.nomeAula
+
+        var aula = await Curso.buscaAulaCompletaAssistir(tituloAula, tituloCurso) 
+        console.log(aula)
+        var aulas = await Curso.aulasCursoAssistir(tituloCurso) 
+        var perguntas = await Curso.perguntasCursoAssistir(tituloAula, tituloCurso) 
+        var progresso = await Curso.progressoCursoAssistir(tituloCurso) 
+        
+        res.render("curso/assistirAula2.ejs", { aula: aula, aulas: aulas, perguntas: perguntas, progresso: progresso });
+    } catch (error) {
+        console.log("erro")
+        return
+    }
+}
+
+
+async listaCursos(req, res){
+    try {
+
+        var sessao 
+
+        if(req.session.user == undefined){
+            sessao = 0
+        }else{
+            sessao = 1
+        }
+        var idUsuario = req.session.user.id
+
+        var usuario = await Curso.pegaUsuario(idUsuario)
+        var cursos = await Curso.listaCursos() 
+        var categorias = await Categoria.todasCategorias()
+
+            
+        res.render("curso/listasCursos.ejs", { cursos: cursos, usuario: usuario, sessao: sessao, categorias: categorias })
+    
+    } catch (error) {
+        console.log("erro")
+        return
+    }
+}
+
+async perguntarAula(req,res){
+    var tituloPergunta = req.body.tituloPergunta
+    var descricaoPergunta = req.body.descricaoPergunta
+    var dataPergunta = req.body.dataPergunta
+    var idCurso = req.body.idCurso
+    var idUsuarioLogado = req.session.user.id
+    var idAula = req.body.idAulaPergunta
+
+    
+    var perguntar = await Curso.perguntarAulaModel(idCurso, idAula, idUsuarioLogado, tituloPergunta, descricaoPergunta, dataPergunta)
+
+    if(perguntar.status){
+        console.log("deu certo")
+        res.redirect("/cursos")
+    }else{
+        console.log("Deu ruim")
+    }
+}
+
+ async deletaVideoAssistido(req, res){
+    try {
+        var idAulaConcluida =  req.body.idAulaConcluida
+        var paginaAnterior = req.headers.referer
+        
+        var deletar = await Curso.deletaVideoAssistido(idAulaConcluida)
+        
+        if(deletar.status){
+            console.log("Deu certo")
+            res.redirect(paginaAnterior)
+
+        }else{
+            console.log("Deu ruim")
+        }
+
+    } catch (error) {
+        
+    }
+} 
+
+
+async adicionaVideoAssistido(req, res){
+    try {
+        var idUsuario = req.session.user.id
+        var idAula = req.body.idAula
+        var idCurso = req.body.idCurso
+        var concluida = 1
+        var dataConclusao = req.body.dataConclusao
+        const paginaAnterior = req.headers.referer
+        
+        var adicionar = await Curso.adicionarVideoAssistido(idUsuario, idAula, idCurso, concluida, dataConclusao)
+        
+        if(adicionar.status){
+            console.log("Deu certo")
+            res.redirect(paginaAnterior)
+
+        }else{
+            console.log("Deu ruim")
+        }
+
+    } catch (error) {
+        
+    }
+}
+
+
+async CadastroEEditaCurso(req, res){
+    try {
+        if (req.session.user == undefined) {
+           console.log("Usuario nao logado")
+        }
+
+        var idUsuarioSession = req.session.user.id
+        var categorias = await Categoria.todasCategorias()
+        const instrutor = await Curso.instrutorNomeUsuario(idUsuarioSession)   
+
+        res.render("curso/criarCurso.ejs", {instrutor: instrutor, categorias: categorias })
+
+
+    } catch (error) {
+        console.log(error)
+        return
+    }
+}
+
+
+
 
 }
 

@@ -87,7 +87,7 @@ $(".visualizarAula").click(function(){
    var tituloCurso = $(this).attr('titulo-curso');
    var tituloAula =  $(this).attr('titulo-aula');
 
-    window.location.href = `/assistir/${tituloCurso}/${tituloAula}`
+    window.location.href = `/assistir/aula/${tituloCurso}/${tituloAula}`
 
 
 })
@@ -104,7 +104,7 @@ $(".excluirAula").click(function(){
         confirmButtonText: "Sim, deletar!"
       }).then((result) => {
         if (result.isConfirmed) {
-            axios.delete("http://localhost:8080/deletar/aula/"+idAula)
+            axios.delete("/deletar/aula/"+idAula)
             .then(function(response){
                 location.reload()
                 
@@ -118,7 +118,7 @@ $(".excluirAula").click(function(){
                     timer: 1500
                 })   
             })
-        }
+        } 
       });
  })
 
@@ -129,16 +129,15 @@ $(".editarAula").click(function(){
     $("#editarAulaSelecionada").show()
     $("#cancelarEdicao").show()
     $("#idAula").val(idAula)
-    console.log(idAula)
 
-    axios.get("http://localhost:8080/aula/unica/"+idAula)
+    axios.get("/aula/unica/"+idAula)
     .then(function(response){
         console.log(response)
         var aula = response.data
         $("#idCurso").val(aula.idCurso),
         $("#tituloAula").val(aula.tituloAula),
         $("#descricaoAula").val(aula.descricaoAula),
-        $("#linkAula").val(aula.descricaoAula),
+        $("#linkAula").val(aula.linkAula),
         $("#duracaoAula").val(aula.duracaoAula) 
 
         
@@ -181,7 +180,7 @@ $("#editarAulaSelecionada").click(function(){
     }
 
     if(camposPreenchidos){
-        axios.put("http://localhost:8080/editar/aula/"+idAula, dados)
+        axios.put("/editar/aula/"+idAula, dados)
         .then(function(response){
             location.reload()
 
@@ -207,6 +206,19 @@ $("#editarAulaSelecionada").click(function(){
             }) 
     }
 
+
+ })
+
+ $("#cancelarEdicao").click(function(){
+    $("#editarAulaSelecionada").hide()
+    $("#cancelarEdicao").hide()
+    $("#cadastrarAula").show()
+
+    $("#idCurso").val("")
+    $("#tituloAula").val("")
+    $("#descricaoAula").val("")
+    $("#linkAula").val(""),
+    $("#duracaoAula").val("")
 
  })
     

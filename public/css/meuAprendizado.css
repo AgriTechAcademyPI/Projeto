@@ -144,7 +144,7 @@
   transition: width 0.5s;
 }
 
-#progressBar{
+.progressBar{
   color: rgb(70, 69, 69);
   font-size: 8px;
 
@@ -284,10 +284,4 @@
 }
 .starsLista input:checked ~ label {
   color: #ffc700;
-}
-.starsLista input:hover ~ label {
-  color: #ffdd00;
-}
-.starsLista label:hover ~ label {
-  color: #ffdd00;
 }

@@ -4,7 +4,7 @@ class Categorias{
 
     async todasCategorias(){
         try {
-            var result =  knex.select("categorias.title", "categorias.id").table("categorias")
+            var result =  knex.select("categorias.*").table("categorias")
             return result 
         } catch (error) {
             console.log(error)

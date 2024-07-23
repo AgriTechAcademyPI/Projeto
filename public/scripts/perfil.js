@@ -1,5 +1,5 @@
 
-axios.get('http://localhost:8080/perfilUsuario')
+axios.get('/perfilUsuario')
     .then(function (data) {
         var usuario = data.data
         $("#nomeUsuario").val(usuario.nomeUsuario)
@@ -16,10 +16,10 @@ axios.get('http://localhost:8080/perfilUsuario')
     .catch(function (error) {
         console.log('Erro ao atualizar o perfil:', error);
         alert('Ocorreu um erro ao atualizar o perfil. Por favor, tente novamente.');
-    });
+    }); 
 
 
-axios.get('http://localhost:8080/perfilInstrutor')
+axios.get('/perfilInstrutor')
     .then(function (data) {
         console.log("sucesso us")
         var instrutor = data.data
@@ -68,7 +68,7 @@ $("#salvarPerfilUsuario").click(function(){
         bibliografia: $("#bibliografiaUsuario").val()
    } 
    
-   axios.put('http://localhost:8080/perfilUsuario', dadosPerfilUsuario)
+   axios.put('/perfilUsuario', dadosPerfilUsuario)
    .then(function (response) {
        Swal.fire({
         position: "top-end",
@@ -98,7 +98,7 @@ $("#salvarPerfilInstrutor").click(function(){
         dataDeNascimento: dataDeNascimento
     } 
     
-    axios.put('http://localhost:8080/perfilInstrutor', dadosPerfilInstrutor)
+    axios.put('/perfilInstrutor', dadosPerfilInstrutor)
     .then(function (response) {
         Swal.fire({
             position: "top-end",
@@ -112,7 +112,26 @@ $("#salvarPerfilInstrutor").click(function(){
         console.log('Erro ao atualizar o perfil:', error);
         alert('Ocorreu um erro ao atualizar o perfil. Por favor, tente novamente.');
     });
+ 
+})
 
+$("#salvarFotoUsuario").click(function(){
+    var imagem = $("#imagemUsuario").val()
+
+    axios.put("/perfilImagem", {imagemUsuario: imagem}).then(function (response) {
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Imagem de perfil salva com sucesso!!!",
+            showConfirmButton: false,
+            timer: 1500
+        })   
+        window.location.reload()
+    })
+    .catch(function (error) {
+        console.log('Erro ao atualizar o perfil:', error);
+        alert('Ocorreu um erro ao atualizar o perfil. Por favor, tente novamente mais tarde.');
+    });
 })
 
 

@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-3">
-                <img class="img img-fluid imgLogo" src="/img/logobranco.svg" alt="">
+                <a href="/"><img class="img img-fluid imgLogo" src="/img/logobranco.svg" alt=""></a>
             </div>
             <div class=" col-1 divisor"></div>
             <div class="col-4">
@@ -34,7 +34,7 @@
                   <li>
                     <div class="container" id="dropInfo">
                       <div class="row">
-                        <span class="porcentagem">Progresso: <%=progresso.porcentagem_assistida%> %</span>
+                        <span class="porcentagem">Progresso: <%=  Math.floor(progresso.porcentagem_assistida)%> %</span>
                       </div>
                       <div class="row">
                         <span class="spanAulas">Você assistiu <%=progresso.aulas_assistidas%> de <%=progresso.total_aulas%> aulas</span>
@@ -60,19 +60,19 @@
       <h5>Conteúdo do Curso</h5>
     </div>
     <div class="col-2">
-      <img class="img img-fluid" src="/img/seta-para-baixo.png" alt="">
     </div>
+    
   </div>
     <%aulas.forEach(aula=> {%>
         <div class="row linhaAula">
-
-        <div class="form-check">
+         <div class="form-check">
+          
             <% if(aula.concluida == 1) { %>
               <form method="post" action="/removeVideoAssistido" class="meuFormularioDelete">
 
               <input class="form-check-input removerCheckbox" type="checkbox" checked >
               <label class="form-check-label" for="flexCheckChecked">
-                <a href="/assistir/<%= aula.tituloCurso%>/<%=aula.tituloAula%>"> <%=aula.tituloAula%></a>
+                <a href="/assistir/aula/<%= aula.titulo%>/<%=aula.tituloAula%>"> <%=aula.tituloAula%></a>
               </label>
               <input type="number" name="idAulaConcluida" value="<%=aula.idAulaConcluida%>" style="display: none;">
             </form>
@@ -82,7 +82,7 @@
 
               <input class="form-check-input enviarCheckbox" type="checkbox" value="" >
               <label class="form-check-label" for="flexCheckChecked">
-                <a href="/assistir/<%= aula.tituloCurso%>/<%=aula.tituloAula%>"> <%=aula.tituloAula%></a>
+                <a href="/assistir/aula/<%= aula.titulo%>/<%=aula.tituloAula%>"> <%=aula.tituloAula%></a>
               </label>
               <input type="number" value="<%=aula.idAula%>" name="idAula" style="display: none;">
               <input type="number" value="<%=aula.idCurso%>" name="idCurso" style="display: none;">
@@ -150,7 +150,7 @@
 
   <div class="row bordaSessao">
     <h5>Data de Publicação:</h5>
-    <p id="dataAula"></p>
+    <p id="dataAula"><%=aula.dataCriacao%> </p>
   </div>
 
   <div class="row bordaSessao">
@@ -227,6 +227,7 @@
         <label>Descrição</label>
         <input type="text" class="form-control" name="descricaoPergunta" id="descricaoPergunta" placeholder="Elabore sua pergunta.">
 
+        <input hidden name="idAulaPergunta" value="<%=aula.idDaAula%>">
         <input style="display: none;" name="dataPergunta" id="dataPergunta" type="text" placeholder="" >
         <input style="display: none;" type="number" name="idCurso" id="idCurso" value="<%=aula.idCurso%>" placeholder="<%=aula.idCurso%>">
 

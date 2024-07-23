@@ -161,7 +161,13 @@ function atualizarListaCursos(cursos) {
             </div>         
             <div class="row align-items-start">
                 <div class="col-6">
-                    <img src="/img/icons/estrela.png" class="img-fluid estrela" alt="estrela">
+                            <div class="starsLista">
+                                <input type="radio" value="5" ${ curso.mediaAvaliacoes >= 5 ? 'checked' : '' }><label>★</label>
+                                <input type="radio" value="4" ${ curso.mediaAvaliacoes >= 4 && curso.mediaAvaliacoes < 5 ? 'checked' : '' }><label>★</label>
+                                <input type="radio" value="3" ${ curso.mediaAvaliacoes >= 3 && curso.mediaAvaliacoes < 4 ? 'checked' : '' }><label>★</label>
+                                <input type="radio" value="2" ${ curso.mediaAvaliacoes >= 2 && curso.mediaAvaliacoes < 3 ? 'checked' : '' }><label>★</label>
+                                <input type="radio" value="1" ${ curso.mediaAvaliacoes >= 1 && curso.mediaAvaliacoes < 2 ? 'checked' : '' }><label>★</label>
+                            </div>   
                 </div>
                 <div class="col-6">
                     <a class=" btn btn-warning btn-sm botao" href="/assistir/curso/${curso.titulo}">Ver Mais</a>
@@ -210,11 +216,28 @@ $(".cadastrarAula").click(function(){
 $(".excluirCurso").click(function(){
     var idCurso = $(this).attr("id-curso");
 
-    axios.delete("/curso/"+idCurso)
-    .then(function(response) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+      title: "Deseja realmente deletar esse curso?",
+      text: "Você e mais nenhum usuário poderá assistir ele novamente!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sim, deletar!",
+      cancelButtonText: "Não, cancelar!",
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete("/curso/"+idCurso)
+        .then(function(response) {
         window.location.reload(); 
-    })
-    .catch(function(error) {
+        })
+        .catch(function(error) {
         Swal.fire({
             position: "top-end",
             icon: "error",
@@ -223,6 +246,17 @@ $(".excluirCurso").click(function(){
             showConfirmButton: false,
             timer: 1500
         })   
+    });
+       
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire({
+          title: "Cancelado",
+          text: "Seu curso está a salvo :)",
+          icon: "error"
+        });
+      }
     });
 
 })

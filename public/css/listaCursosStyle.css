@@ -337,3 +337,25 @@ main h2{
 }
 
 
+.starsLista {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-top: -10px;
+    margin-left: 25px;
+  }
+  .starsLista input {
+    display: none;
+  }
+  .starsLista label {
+    font-size: 2em;
+    color: #ddd;
+    cursor: pointer;
+  }
+  .starsLista input:checked ~ label {
+    color: #ffc700;
+  }
+  
+  .marginEstrelas{
+    margin-top: -15px;
+  }

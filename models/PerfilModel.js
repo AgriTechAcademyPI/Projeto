@@ -14,7 +14,7 @@ class Perfil{
                               "instrutores.endereco",
                               "instrutores.cpf"
                             )
-                .table("usuarios")
+                .table("usuarios") 
                 .leftJoin("instrutores","instrutores.idUsuario", "usuarios.id")
                 .where("usuarios.id", id).first()
 
@@ -102,12 +102,24 @@ class Perfil{
             }
 
         }else{
-            res.status(403)
             res.json("Falha ao encontrar Instrutor")
 
         }
 
 
+    }
+
+    async editarImagemPerfil(idUsuario, imagemUsuario){ 
+        
+            try {
+                await knex.update({imagemUsuario: imagemUsuario})
+                .where("id", idUsuario)
+                .table("usuarios")
+                return {status: true}
+            } catch (err) {
+                return {status: true, err:err}
+                
+            }
     }
 
 

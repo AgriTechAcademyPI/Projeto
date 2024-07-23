@@ -45,8 +45,8 @@
 
                        
                         <li style="margin-left: 60px;" class="nav-item d-flex" id="linkPerfil">
-                          <img class="img img-fluid" src="/img/icons/avatar.png" id="imagemPerfil" alt="">
-                          <a class="nav-link" href="/perfil"><%= nomeUsuarioSession %></a>
+                          <img class="img img-fluid" src="<%=usuario.imagemUsuario %>" id="imagemPerfil" alt="">
+                          <a class="nav-link" href="/perfil"><%= usuario.nomeUsuario %></a>
                         </li>
                             
 
@@ -61,14 +61,7 @@
         <div class="row">
             <h1>Meu Aprendizado</h1>
         </div>
-        <div class="row linhaLista">
-
-            <ul class="nav-links">
-            <li id="sessaoUsuarioMenu"> <a>Todos os cursos</a></li>
-            <li id="sessaoInstrutorMenu"><a>Arquivados</a></li>
-          </ul>
-
-        </div>
+        
     </div>
 </section>
 
@@ -153,22 +146,20 @@
                 <h3><%= curso.titulo %></h3>
             </div>
             <div class="row">
-                <p><%=curso.nomeInstrutor%></p>
+                <p><%=curso.nomeInstrutor%> <%=curso.totalAulasCurso%></p>
             </div>
                 <div class="progress-container">
-                    <div class="progress-bar" id="progressBar" aria-valuenow="50"></div>
+                    <div class="progress-bar progressBar" data-progress="<%= curso.totalAulasCurso > 0 ? Math.floor((curso.aulasAssistidas / curso.totalAulasCurso) * 100) : 0 %>"></div>
                 </div>         
             <div class="row align-items-start">
-                <div class="col-6">
+                <div class="col-6"> 
                     <div class="starsLista">
                                 <input type="radio" value="5" <%= curso.mediaAvaliacoes >= 5 ? 'checked' : '' %>><label>★</label>
                                 <input type="radio" value="4" <%= curso.mediaAvaliacoes >= 4 && curso.mediaAvaliacoes < 5 ? 'checked' : '' %>><label>★</label>
                                 <input type="radio" value="3" <%= curso.mediaAvaliacoes >= 3 && curso.mediaAvaliacoes < 4 ? 'checked' : '' %>><label>★</label>
                                 <input type="radio" value="2" <%= curso.mediaAvaliacoes >= 2 && curso.mediaAvaliacoes < 3 ? 'checked' : '' %>><label>★</label>
                                 <input type="radio" value="1" <%= curso.mediaAvaliacoes >= 1 && curso.mediaAvaliacoes < 2 ? 'checked' : '' %>><label>★</label>
-                        
-
-                      </div>
+                    </div>
                 </div>
                 <div class="col-6">
                     <a class=" btn btn-warning btn-sm botao" href="/assistir/curso/<%=curso.titulo%>">Assistir</a>

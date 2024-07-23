@@ -70,7 +70,7 @@ header .iconeSeta{
         background-color: #8cd3216f;
         position: absolute;
         margin-top: 8.3%;
-        height: 175%;
+        height: 250%;
         width: 25%;
         top: 0;
         left: 0;
@@ -190,8 +190,9 @@ header .iconeSeta{
     width: 74%;
 }
 
-#perguntasFrequentes .imgAvatarAluno{
+ .identificadorAluno .imgAvatarAluno{
     width: 60px;
+    border-radius: 50%;
 }
 
 #perguntasFrequentes h5{

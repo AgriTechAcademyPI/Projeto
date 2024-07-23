@@ -3,7 +3,7 @@ var Perfil = require("../models/PerfilModel")
 class PerfilController{
     
     async perfilUsuario(req, res){
-      var id = req.session.user.id
+      var id = req.session.user.id 
       if(req.session.user != undefined){
         var perfil = await Perfil.perfilUsuario(id)
         res.json(perfil)
@@ -106,8 +106,44 @@ class PerfilController{
     }
   }
 
+
+  async editarImagemPerfil(req, res){
+
+    if(req.session.user != undefined){
+
+      var idUsuario = req.session.user.id
+      var imagemUsuario = req.body.imagemUsuario
+      var result = await Perfil.editarImagemPerfil(idUsuario, imagemUsuario) 
+
+
+      if(result != undefined){
+          if(result.status){ 
+            res.status(200).send("Imagem de perfil alterada com sucesso.");
+          }else{
+            res.status(403).send("Houve um erro ao alterar a imagem de perfil.");
+          }
+      }else{
+        res.status(406).send("Houve um erro ao alterar a imagem de perfil. Usuário não encontrado");
+
+          
+      }  
+    }else{
+      res.status(403)
+      res.send("Usuário não logado")
+    }
+  }
+
+
+
+
 async perfilUsuario(req,res){
-  res.render("perfil/perfil.ejs")
+  if(req.session.user == undefined){
+    res.status(403).send("Você deve estar logado para acessar o perfil");
+
+  }
+  var idUsuario = req.session.user.id
+  var usuario = await Perfil.findPerfilUsuarioByID(idUsuario)
+  res.render("perfil/perfil.ejs", {usuario: usuario})
 }
 
 

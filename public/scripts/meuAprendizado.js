@@ -9,24 +9,41 @@ for (let p of elements) {
 }
 
 
-function updateProgressBar(value) {
-        var progressBar = document.getElementById('progressBar');
-        progressBar.setAttribute('aria-valuenow', value);
-        progressBar.style.width = value + '%';
-        progressBar.innerHTML = value + '%';
-}
+function carregarBarraProgresso() {
+    var progressBars = document.querySelectorAll('.progressBar');
 
-function animateProgressBar() {
+    progressBars.forEach(function(progressBar) {
+        var progresso = parseFloat(progressBar.getAttribute('data-progress')); // Converter para número
+
+        // Verificar se progresso é um número válido
+        if (!isNaN(progresso)) {
+            animateProgressBar(progressBar, progresso);
+        } else {
+            console.error('Valor inválido para data-progress:', progresso);
+        }
+    });
+};
+
+function animateProgressBar(progressBar, progresso) {
     var value = 0;
     var interval = setInterval(function() {
-        if (value >= 50) {
+        if (value >= progresso) {
             clearInterval(interval);
         } else {
             value++;
-            updateProgressBar(value);
+            updateProgressBar(progressBar, value);
         }
-    }, 10); 
+    }, 20);
 }
+
+function updateProgressBar(progressBar, value) {
+    progressBar.style.width = value + '%';
+    progressBar.innerHTML = value + '%';
+}
+
+
+
+
 
 function dropDownCategorias() {
     const selectElement = document.getElementById('selectCategorias');
@@ -80,9 +97,9 @@ axios.get('/avaliacao/estatisticas/:idCurso' + 8)
 
 
 
-animateProgressBar();
 dropDownCategorias();
 dropDownInstrutores();
+carregarBarraProgresso();
 
 const searchWrapper = document.querySelector(".search-input");
 const inputBox = searchWrapper.querySelector("input");
@@ -168,11 +185,6 @@ $("#botaoBuscar").click(function(){
     const progresso = $("#selectProgresso").val()
     const instrutor = $("#selectInstrutores").val()
 
-    /* console.log(tipoOrdenacao)
-    console.log(categoria)
-    console.log(progresso)
-    console.log(instrutor)
- */
 
     let url = '/meuAprendizado/filtro';
     let params = [];
@@ -228,13 +240,19 @@ function atualizarListaCursos(cursos) {
             <div class="row">
                 <p>${curso.nomeInstrutor}</p>
             </div>
-                <div class="progress-container">
-                    <div class="progress-bar" id="progressBar" aria-valuenow="50"></div>
-                </div>         
+               <div class="progress-container">
+                    <div class="progress-bar progressBar" data-progress="${ curso.totalAulasCurso > 0 ? Math.floor((curso.aulasAssistidas / curso.totalAulasCurso) * 100) : 0 }"></div>
+                </div>          
             <div class="row align-items-start">
                 <div class="col-6">
-                    <img src="/img/icons/estrela.png" class="img-fluid estrela" alt="estrela">
-                </div>
+                            <div class="starsLista">
+                                <input type="radio" value="5" ${ curso.mediaAvaliacoes >= 5 ? 'checked' : '' }><label>★</label>
+                                <input type="radio" value="4" ${ curso.mediaAvaliacoes >= 4 && curso.mediaAvaliacoes < 5 ? 'checked' : '' }><label>★</label>
+                                <input type="radio" value="3" ${ curso.mediaAvaliacoes >= 3 && curso.mediaAvaliacoes < 4 ? 'checked' : '' }><label>★</label>
+                                <input type="radio" value="2" ${ curso.mediaAvaliacoes >= 2 && curso.mediaAvaliacoes < 3 ? 'checked' : '' }><label>★</label>
+                                <input type="radio" value="1" ${ curso.mediaAvaliacoes >= 1 && curso.mediaAvaliacoes < 2 ? 'checked' : '' }><label>★</label>
+                            </div>         
+                    </div>
                 <div class="col-6">
                     <a class=" btn btn-warning btn-sm botao" href="/assistir/curso/${curso.titulo}">Ver Mais</a>
                 </div>
@@ -246,7 +264,8 @@ function atualizarListaCursos(cursos) {
      </div>`;
 
      elemento.appendChild(cursoElement)
-            
+     carregarBarraProgresso()
+       
     });
 
 }
@@ -308,7 +327,6 @@ $(".avaliacao").click(function(){
         $("#cadastrarAvaliacao").html("Enviar Avaliação")
         $('#comentarioAvaliacao').val("")
         limparAvaliacao()
-        console.log(response.data)
 
       }
     })
@@ -369,64 +387,6 @@ $("#cadastrarAvaliacao").click(function(){
         })  
     }
     })
-
-    /* $(document).ready(function() {
-        // Itera sobre cada curso na página
-        $('.avaliacao').each(function() {
-            var idCurso = $(this).attr('id-curso');
-    
-            axios.get('/avaliacao/estatisticas/' + idCurso)
-                .then(function(response) {
-                    if (response.data && response.data.mediaNotas) {
-                        var valorAvaliacao = response.data.mediaNotas;
-    
-                        // Seleciona a estrela correspondente ao valor da avaliação
-                        var inputId = '#star' + valorAvaliacao + 'Lista-' + idCurso;
-                        $(inputId).prop('checked', true);
-    
-                    } else {
-                        console.log('Não foram encontradas estatísticas para o curso com ID:', idCurso);
-                    }
-                })
-                .catch(function(error) {
-                    // Trate erros se a requisição falhar
-                    console.error('Erro ao obter estatísticas das avaliações do curso com ID:', idCurso, error);
-                });
-        });
-    });
-    
-    
-    
-    
-    // Função para marcar dinamicamente as estrelas de avaliação
-    function marcarEstrelas(valorAvaliacao, idCurso) {
-        if(valorAvaliacao == 1){
-            const input = document.getElementById(("star5Lista-"+idCurso))
-            input.checked = true
-        }
-
-        if(valorAvaliacao == 2){
-            const input = document.getElementById(("star4Lista-"+idCurso))
-            input.checked = true
-        }
-
-        if(valorAvaliacao == 3){
-            const input = document.getElementById(("star3Lista-"+idCurso))
-            input.checked = true
-        }
-
-        if(valorAvaliacao == 4){
-            const input = document.getElementById(("star2Lista-"+idCurso))
-            input.checked = true
-        }
-
-        if(valorAvaliacao == 5){
-            const input = document.getElementById(("star1Lista-"+idCurso))
-            input.checked = true
-        }
-    
-    }  */
-    
 
 
 function dataCompletaIso(){

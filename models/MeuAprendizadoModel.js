@@ -30,7 +30,11 @@ class MeuAprendizado{
                 "cursos.idInstrutor",
                 "cursos.titulo",
                 "cursos_usuarios.statusCurso",
-                knex.raw("(SELECT AVG(avaliacoes_curso.avaliacao) FROM avaliacoes_curso WHERE avaliacoes_curso.idCurso = cursos.id) as mediaAvaliacoes")
+                knex.raw("(SELECT CEIL(AVG(avaliacoes_curso.avaliacao)) FROM avaliacoes_curso WHERE avaliacoes_curso.idCurso = cursos.id) as mediaAvaliacoes"),
+                knex.raw("(SELECT COUNT(*) FROM aulas WHERE aulas.idCurso = cursos.id) AS totalAulasCurso"),
+                knex.raw("(SELECT COUNT(*) FROM aulas_concluidas WHERE aulas_concluidas.idCurso = cursos.id) AS aulasAssistidas")
+
+
             )
             .table("cursos_usuarios")
             .innerJoin("cursos", "cursos.id", "cursos_usuarios.idCurso")

@@ -12,15 +12,14 @@ function limitaTexto(){
 
 limitaTexto()
 
-console.log("teste")
-
 document.addEventListener('DOMContentLoaded', function() {
     const courses = document.querySelectorAll('#botaoVerMais');
     
     courses.forEach(course => {
         course.addEventListener('click', function() {
             const courseId = this.getAttribute('data-id');
-            axios.get("http://localhost:8080/informacoes-curso/"+courseId)
+            $("#listaAulasCurso").html('')
+            axios.get("/informacoes-curso/"+courseId)
             .then(function(data){
                 var curso = data.data
                 $("#tituloCursoModal").html(curso.titulo)
@@ -28,15 +27,56 @@ document.addEventListener('DOMContentLoaded', function() {
                 $("#descricaoMiniModal").html(curso.descricaoMini);
                 $("#criadoPorModal").html("Criado por: "+ curso.nomeCompleto);
                 $("#ultimaAtualizacaoModal").html("Última atualização: " + formataDataISO(curso.ultimaAtualizacao));
-                /*$("#notaAvaliacaoModal").html("");
-                $("#imgAvaliacaoModal").attr("src", curso.linkCurso);
-                $("#quantidadeAvaliacoesModal").html(`(${teste} avaliações)`);*/
+
+                notaAvaliacao = curso.mediaAvaliacoes
+                $("#containerEstrelas").html(`
+                <div class="starsLista marginEstrelas">
+                    <input type="radio" value="5" ${notaAvaliacao >= 5 ? 'checked' : ''}><label>★</label>
+                    <input type="radio" value="4" ${notaAvaliacao >= 4 && notaAvaliacao < 5 ? 'checked' : ''}><label>★</label>
+                    <input type="radio" value="3" ${notaAvaliacao >= 3 && notaAvaliacao < 4 ? 'checked' : ''}><label>★</label>
+                    <input type="radio" value="2" ${notaAvaliacao >= 2 && notaAvaliacao < 3 ? 'checked' : ''}><label>★</label>
+                    <input type="radio" value="1" ${notaAvaliacao >= 1 && notaAvaliacao < 2 ? 'checked' : ''}><label>★</label>
+                </div>
+                `)
+
+                if(notaAvaliacao == null){
+                    $("#notaAvaliacaoModal").html("0")
+
+                }else{
+                    $("#notaAvaliacaoModal").html(notaAvaliacao + ".0")
+
+                }
+                
+                $("#quantidadeAvaliacoesModal").html(`(${curso.totalAvaliacoes} avaliações)`);
+
                 $("#quantidadeAlunosModal").html(curso.quantidadeAlunos + " alunos");
-                $("#horasCursoModal").html(curso.duracaoTotalCurso +" horas de vídeo sob demanda") 
+
+                if(curso.duracaoTotalCurso == null){
+                    $("#horasCursoModal").html("0 horas de vídeo sob demanda")
+
+                }else{
+                    $("#horasCursoModal").html(curso.duracaoTotalCurso +" horas de vídeo sob demanda")
+
+                }
+
                 $("#requisitosModal").html(curso.requisitos);
                 $("#descricaoCompletaModal").html(curso.descricao);
                 $("#conteudoAprendizadoModal").html(curso.conteudoAprendizado);
                 $("#informacoesConteudoCursoModal").html(`${curso.totalAulasCurso} aulas • Duração total: ${curso.duracaoTotalCurso ? curso.duracaoTotalCurso : 0} horas`)
+
+
+                axios.get("/curso/aulas/"+curso.id)
+                .then(function(response){
+                    var aulas = response.data
+                    console.log(aulas)
+                    aulas.forEach(aula =>{
+                        console.log(aula.tituloAula)
+                        $("#listaAulasCurso").append(`<li><p class="paragrafoMedio">${aula.tituloAula}</p></li>`)
+                    })
+                }).catch(function(error){
+
+                })
+
 
             }).catch(function(error){
                 console.log("Erro ao carregar o ver mais"+ error)
@@ -50,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     ultimoAcesso: dataAtualIso()
                 }
 
-                axios.post('http://localhost:8080/obter-curso', dadosObterCurso)
+                axios.post('/obter-curso', dadosObterCurso)
                 .then(function(response){
                     Swal.fire({
                         title: "Curso adquirido com sucesso!!! ",
@@ -68,7 +108,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                       });
                 }).catch(function(error){
-                    console.log("Houve um erro ao obter o curso" + error)
+                    console.log(error)
+                    Swal.fire({
+                        title: "Erro ao adquirir curso ",
+                        text: error.response.data,
+                        icon: "error"
+                    })
                 })
 
             })

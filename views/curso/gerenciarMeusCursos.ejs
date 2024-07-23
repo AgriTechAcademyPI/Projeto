@@ -9,8 +9,44 @@
 
 </head>
 <body>
-    <%- include('../partials/navbarMeuAprendizado.ejs'); %>
-
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container text-center">
+                <a class="navbar-brand" href="/"><img class="img-fluid" src="../img/logobranco.svg" alt=""></a>
+    
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarNav">
+                    <ul class="navbar-nav">
+                        
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cadastro/curso">Cadastrar Curso</a>
+                            </li> 
+    
+                            <li class="nav-item">
+                                <a class="nav-link" href="/gerenciar/cursos">Gerenciar meus cursos</a>
+                            </li>
+                       
+                           
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cursos"> Cursos</a>
+                            </li>
+    
+                           
+                            <li style="margin-left: 60px;" class="nav-item d-flex" id="linkPerfil">
+                              <img class="img img-fluid" src="<%=usuario.imagemUsuario %>" id="imagemPerfil" alt="">
+                              <a class="nav-link" href="/perfil"><%= usuario.nomeUsuario %></a>
+                            </li>
+                                
+    
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 <section id="cabecalho">
     <div class="container">
         <div class="row">
@@ -82,7 +118,13 @@
                        
             <div class="row align-items-start">
                 <div class="col-6">
-                    <img src="/img/icons/estrela.png" class="img-fluid estrela" alt="estrela">
+                    <div class="starsLista">
+                        <input type="radio" value="5" <%= curso.mediaAvaliacoes >= 5 ? 'checked' : '' %>><label>★</label>
+                        <input type="radio" value="4" <%= curso.mediaAvaliacoes >= 4 && curso.mediaAvaliacoes < 5 ? 'checked' : '' %>><label>★</label>
+                        <input type="radio" value="3" <%= curso.mediaAvaliacoes >= 3 && curso.mediaAvaliacoes < 4 ? 'checked' : '' %>><label>★</label>
+                        <input type="radio" value="2" <%= curso.mediaAvaliacoes >= 2 && curso.mediaAvaliacoes < 3 ? 'checked' : '' %>><label>★</label>
+                        <input type="radio" value="1" <%= curso.mediaAvaliacoes >= 1 && curso.mediaAvaliacoes < 2 ? 'checked' : '' %>><label>★</label>
+                    </div>
                 </div>
                 <div class="col-6">
                     <a class=" btn btn-warning btn-sm botao" href="/assistir/curso/<%=curso.titulo%>">Ver Mais</a>
@@ -90,12 +132,12 @@
             </div>
 
             <div class="row justify-content-center">
-                <div class="col-6">
+                <div class="col-12">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Guia de ações
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button class="dropdown-item cadastrarAula" titulo-curso="<%=curso.titulo%>" id="cadastrarAula" type="button">Cadastrar Aula</button>
+                            <button class="dropdown-item cadastrarAula" titulo-curso="<%=curso.titulo%>" id="cadastrarAula" type="button">Gerenciar Aulas</button>
                             <button class="dropdown-item editarCurso" id-curso="<%=curso.id%>" id="editarCurso" type="button">Editar Curso</button>
                             <button class="dropdown-item" id="monitorarAvaliações" type="button">Monitorar Avaliações</button>
                             <button class="dropdown-item excluirCurso" id="excluirCurso" id-curso="<%=curso.id%>" type="button">Excluir Curso</button>

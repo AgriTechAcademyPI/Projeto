@@ -6,46 +6,27 @@ var router = require("./routes/routes")
 
 var PagesRouter = require("./routes/PagesRouter")
 
-
-
-
-/* var database = require("./database/database")
- */
 const connection = require("./database/database")
-const UserController = require("./user/UserController")
-const InstrutorController = require("./instrutor/InstrutorController")
-const CursoController = require("./curso/CursoController")
-
-
-
 
 
 // view engine (para utilizar o ejs)
 
 app.set("view engine", "ejs")
 
-//body parser (acessar formularios)
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-
 
 
 //static(para usar arquivos estaticos fts, css)
 app.use(express.static("public"))
 
 
-//database connection
-
 app.use(session({
     secret: "fofinho", cookie: {maxAge: 100000000}
 }))
 
 
-
-app.use("/", UserController)
-app.use("/", InstrutorController)
-app.use("/", CursoController)
 app.use("/", router)
 app.use("/", PagesRouter)
 
@@ -73,11 +54,11 @@ const $ = jQuery(dom.window);
 
 
 app.get("/" , (req,res) =>{
-         req.session.user = {
+      /* req.session.user = {
         id: 1,
         email: "vivicogamerbr2@gmail.com",
-        nome: "Gaiz lindoo"
-    }     
+        nome: "Gazeta"
+    }    */      
     const sessao = req.session.user
     var sessao1
     if(sessao == undefined){

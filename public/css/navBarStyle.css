@@ -39,12 +39,12 @@ main h1{
 
 }
 #imagemPerfil{
-    width: 52px;
-    height: 52px;
+    width: 62px;
+    height: 62px;
+    margin-top: -7px;
     margin-right: -18px;
+    border-radius: 50%;
  }
-
-
  
 .rodape{
     background-color: #8CD321;

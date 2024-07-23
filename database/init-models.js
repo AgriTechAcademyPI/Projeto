@@ -1,4 +1,4 @@
-var DataTypes = require("sequelize").DataTypes;
+/* var DataTypes = require("sequelize").DataTypes;
 var _certificados = require("./certificados");
 var _cursos = require("./cursos");
 var _instrutores = require("./instrutores");
@@ -29,3 +29,4 @@ function initModels(sequelize) {
 module.exports = initModels;
 module.exports.initModels = initModels;
 module.exports.default = initModels;
+ */

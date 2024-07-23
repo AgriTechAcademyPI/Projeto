@@ -40,8 +40,8 @@
                     </li>
                     <%if(sessao == 1){%>
                         <li class="nav-item d-flex" id="linkPerfil">
-                          <img class="img img-fluid" src="/img/icons/avatar.png" id="imagemPerfil" alt="">
-                          <a class="nav-link" href="/perfil"><%= nomeUsuarioSession %></a>
+                          <img class="img img-fluid" src="<%=usuario.imagemUsuario%>>" id="imagemPerfil" alt="">
+                          <a class="nav-link" href="/perfil"><%= usuario.nomeUsuario %></a>
                         </li>
                             
                            
@@ -100,7 +100,13 @@
                                         </div>
                                         <div class="row align-items-start">
                                             <div class="col-6">
-                                                <img src="/img/icons/estrela.png" class="img-fluid estrela" alt="estrela">
+                                                <div class="starsLista">
+                                                    <input type="radio" value="5" <%= curso.mediaAvaliacoes >= 5 ? 'checked' : '' %>><label>★</label>
+                                                    <input type="radio" value="4" <%= curso.mediaAvaliacoes >= 4 && curso.mediaAvaliacoes < 5 ? 'checked' : '' %>><label>★</label>
+                                                    <input type="radio" value="3" <%= curso.mediaAvaliacoes >= 3 && curso.mediaAvaliacoes < 4 ? 'checked' : '' %>><label>★</label>
+                                                    <input type="radio" value="2" <%= curso.mediaAvaliacoes >= 2 && curso.mediaAvaliacoes < 3 ? 'checked' : '' %>><label>★</label>
+                                                    <input type="radio" value="1" <%= curso.mediaAvaliacoes >= 1 && curso.mediaAvaliacoes < 2 ? 'checked' : '' %>><label>★</label>
+                                                </div>                                            
                                             </div>
                                             <div class="col-6">
                                                 <a id="botaoVerMais" data-id="<%= curso.id %>" class="btn btn-warning btn-sm botao" data-bs-toggle="modal" data-bs-target="#modalExemplo">Ver Mais</a>
@@ -145,17 +151,17 @@
                             </div>
 
                             <div class="row avaliacao">
-                                <div class="col-3 mr-0">
+                                <div class="col-1">
                                     <p id="notaAvaliacaoModal" class="paragrafoPequeno">4.0</p>
                                 </div>
-                                <div class="col-3">
-                                    <img id="imgAvaliacaoModal" height="30px" width="55px" src="/img/icons/estrela.png" alt="">
+                                <div id="containerEstrelas" class="col-6 mr-1">
+                                 
                                 </div>
                                 <div class="col-3">
                                     <p id="quantidadeAvaliacoesModal" class="paragrafoPequeno">(34 avaliações)</p>
 
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <p id="quantidadeAlunosModal" class="paragrafoPequeno"></p>
 
                                 </div>
@@ -185,12 +191,7 @@
                                 <h4>Conteúdo do curso</h4>
                                 <p id="informacoesConteudoCursoModal" class="paragrafoPequeno"></p>
 
-                                <ul>
-                                    <li><p class="paragrafoMedio">Aula 1 de Robótica</p></li>
-                                    <li><p class="paragrafoMedio">Aula 2 de Robótica</p></li>
-                                    <li><p class="paragrafoMedio">Aula 3 de Robótica</p></li>
-
-                                </ul>
+                                <ul id="listaAulasCurso"></ul>
                             </div>
 
                             
