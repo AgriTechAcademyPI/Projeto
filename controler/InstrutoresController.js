@@ -1,4 +1,4 @@
-var Instrutores = require("../models/CategoriasModel")
+var Instrutores = require("../models/InstrutoresModel")
 var Usuarios = require("../models/UsuariosModel")
 
 class InstrutoresController{
@@ -18,12 +18,12 @@ class InstrutoresController{
     }
 
     async cadastrarInstrutor(req, res){
-        const idUsuario = req.body.idUsuario
-        const nomeInstrutor = req.body.nomeInstrutor
-        const cpfInstrutor = req.body.cpfInstrutor
-        const enderecoInstrutor = req.body.enderecoInstrutor
-        const contatoInstrutor = req.body.contatoInstrutor
-        const dataNascimentoInstrutor = req.body.dataNascimentoInstrutor
+        var idUsuario = req.body.idUsuario
+        var nomeInstrutor = req.body.nomeInstrutor
+        var cpfInstrutor = req.body.cpfInstrutor
+        var enderecoInstrutor = req.body.enderecoInstrutor 
+        var contatoInstrutor = req.body.contatoInstrutor
+        var dataNascimentoInstrutor = req.body.dataNascimentoInstrutor
 
         var cadastroInstrutores =
         await Instrutores.cadastrarInstrutores(idUsuario, cpfInstrutor, enderecoInstrutor,

@@ -1,6 +1,7 @@
-var Instrutores = require("../models/CategoriasModel")
 var Usuarios = require("../models/UsuariosModel")
-const bcrypt = require("bcryptjs") 
+const bcrypt = require("bcryptjs")
+var Curso = require("../models/CursoModel")
+
 
 class UsuariosController{
     async carregaPaginaCadastroUsuario(req, res){
@@ -108,7 +109,33 @@ class UsuariosController{
             console.log(error+" erro interno de servidor")
             return
         }
-    }  
+    } 
+    
+    async carregaHome(req, res){
+        try {
+             req.session.user = {
+                id: 1,
+                email: "vivicogamerbr2@gmail.com",
+                nome: "Gazeta"
+            }           
+            const sessao = req.session.user
+            var sessao1
+            if(sessao == undefined){
+                sessao1 = 0 
+                res.render("home.ejs", {sessao1:sessao1})
+        
+            }else if(sessao != undefined){
+                var usuario = await Curso.pegaUsuario(req.session.user.id)
+
+                sessao1 = 1
+                res.render("home.ejs", {usuario: usuario, sessao1:sessao1})
+        
+            }
+        } catch (error) {
+            console.log(error)
+            return
+        }
+    }
 }
 
 module.exports = new UsuariosController()

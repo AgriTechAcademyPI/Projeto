@@ -6,10 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Curso</title>
     <link rel="stylesheet" href="/css/criarCurso.css">
+
+    <%- include('../partials/header.ejs'); %>
+
 </head>
 
 <body>
-    <%- include('../partials/navbarMeuAprendizado.ejs'); %>
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container text-center">
+                <a class="navbar-brand" href="/"><img class="img-fluid" src="../img/logobranco.svg" alt=""></a>
+    
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarNav">
+                    <ul class="navbar-nav">
+                
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cadastro/instrutor">Gerenciar Meus Cursos</a>
+                            </li>
+    
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/meu-aprendizado">Meu Aprendizado</a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cursos">Cursos</a>
+                            </li>
+    
+                            <li style="margin-left: 60px;" class="nav-item d-flex" id="linkPerfil">
+                                <img class="img img-fluid" src="<%=usuario.imagemUsuario %>" id="imagemPerfil" alt="">
+                                <a class="nav-link" href="/perfil"><%= usuario.nomeUsuario %></a>
+                            </li>
+                            
+    
+                       
+    
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <div class="container">
         <div class="card"> 
@@ -98,11 +138,7 @@
                     <button id="atualizarCurso" style="display: none;" class="btn btn-success">Atualizar</button>
 
                 </div>
-                <div class="form-group col">
-                    <a class="btn btn-danger" href="/">Retornar a Home</a>
-                </div>
             </div>
-                    
         </div>
     </div>
 

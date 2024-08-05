@@ -4,7 +4,7 @@ class Instrutores{
 
    async cadastrarInstrutores(idUsuario, cpf, endereco, nomeCompleto, celular, dataDeNascimento){
         try {
-            await database.insert({
+            await knex.insert({
                   idUsuario: idUsuario,
                   cpf: cpf,
                   endereco: endereco,

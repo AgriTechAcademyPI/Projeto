@@ -5,7 +5,7 @@ class MeuAprendizado{
     /* 
     status curso-->
     1 - começar
-    2- em andamento
+    2- em andamento 
     3 - finalizado
     */
    

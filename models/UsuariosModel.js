@@ -38,7 +38,8 @@ class Usuarios{
             await knex.insert({
                 nomeUsuario: nomeUsuario,
                 email: emailUsuario,
-                senha: hash
+                senha: hash,
+                imagemUsuario: "../img/icons/avatar.png"
             }).into("usuarios")
 
             return {status:true}

@@ -33,4 +33,9 @@ router.get("/login", UsuariosController.carregaPaginaLoginUsuario)
 // rota logout
 router.get("/logout", UsuariosController.logoutUsuario)
 
+//rota home
+
+router.get("/", UsuariosController.carregaHome)
+
+
 module.exports = router;

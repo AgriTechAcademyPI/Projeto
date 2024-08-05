@@ -3,9 +3,9 @@ var Perfil = require("../models/PerfilModel")
 var Categoria = require("../models/CategoriasModel")
 
 class CursoController{
-    async informacoesCurso(req,res){
+    async informacoesCurso(req,res){ 
         var idCurso = req.params.idCurso
-        var curso = await Curso.informacoesCurso(idCurso, 0)
+        var curso = await Curso.informacoesCurso(idCurso, 0) 
 
         if(idCurso == undefined){
             res.status(403);
@@ -135,15 +135,15 @@ class CursoController{
   async paginaCadastrarAula(req,res){
     var idUsuario = req.session.user.id
     var tituloCurso = req.params.tituloCurso
-    var nomeUsuarioSession = "vivico"
     var curso = await Curso.informacoesCursoUnico(0, tituloCurso) 
     var aulas = await Curso.aulasCurso(curso.id)
-    var tela = "cadastrar-aula"
     var instrutor = await Curso.instrutor(idUsuario)
+    var usuario = await Curso.pegaUsuario(idUsuario)
+
 
     if(instrutor != undefined){
         if(curso.idInstrutor == instrutor.id){
-            res.render("curso/adicionarAulas.ejs", {curso:curso, aulas:aulas, tela:tela, nomeUsuarioSession:nomeUsuarioSession })
+            res.render("curso/gerenciarAulas.ejs", {curso:curso, aulas:aulas, usuario: usuario })
 
         }else{
             return res.status(403).render('erro', { mensagem: "Acesso negado. Você não é o instrutor deste curso." });
@@ -363,8 +363,6 @@ async editarCurso(req, res) {
     try{
         const curso = await Curso.informacoesCursoUnico(idCurso, 0);
         const instrutor = await Curso.instrutor(idUsuario);
-        console.log(idCurso)
-        console.log(curso)
 
         if (!idUsuario) {
             return res.status(403).send("É necessário estar logado para alterar um curso");
@@ -473,15 +471,25 @@ async listaCursos(req, res){
             sessao = 0
         }else{
             sessao = 1
-        }
-        var idUsuario = req.session.user.id
+            var idUsuario = req.session.user.id != undefined ? req.session.user.id : ""
+            var usuario = await Curso.pegaUsuario(idUsuario)
 
-        var usuario = await Curso.pegaUsuario(idUsuario)
+            var instrutor = await Curso.instrutor(idUsuario)
+            var ehInstrutor
+            if(instrutor != undefined){
+                ehInstrutor = 1
+            }else{
+                ehInstrutor = 0
+            }
+
+
+        }
+
         var cursos = await Curso.listaCursos() 
         var categorias = await Categoria.todasCategorias()
 
             
-        res.render("curso/listasCursos.ejs", { cursos: cursos, usuario: usuario, sessao: sessao, categorias: categorias })
+        res.render("curso/listasCursos.ejs", { cursos: cursos, usuario: usuario, sessao: sessao, categorias: categorias, ehInstrutor })
     
     } catch (error) {
         console.log("erro")
@@ -562,9 +570,10 @@ async CadastroEEditaCurso(req, res){
 
         var idUsuarioSession = req.session.user.id
         var categorias = await Categoria.todasCategorias()
-        const instrutor = await Curso.instrutorNomeUsuario(idUsuarioSession)   
+        var instrutor = await Curso.instrutorNomeUsuario(idUsuarioSession)   
+        var usuario = await Curso.pegaUsuario(idUsuarioSession)
 
-        res.render("curso/criarCurso.ejs", {instrutor: instrutor, categorias: categorias })
+        res.render("curso/criarCurso.ejs", {instrutor: instrutor, categorias: categorias, usuario: usuario })
 
 
     } catch (error) {

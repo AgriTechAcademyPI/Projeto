@@ -1,4 +1,6 @@
 var Perfil = require("../models/PerfilModel")
+var Curso = require("../models/CursoModel")
+
 
 class PerfilController{
     
@@ -143,7 +145,17 @@ async perfilUsuario(req,res){
   }
   var idUsuario = req.session.user.id
   var usuario = await Perfil.findPerfilUsuarioByID(idUsuario)
-  res.render("perfil/perfil.ejs", {usuario: usuario})
+
+
+  var instrutor = await Curso.instrutor(idUsuario)
+  var ehInstrutor
+  if(instrutor != undefined){
+      ehInstrutor = 1
+  }else{
+      ehInstrutor = 0
+  }
+
+  res.render("perfil/perfil.ejs", {usuario: usuario, ehInstrutor})
 }
 
 

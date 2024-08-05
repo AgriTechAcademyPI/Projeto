@@ -41,8 +41,9 @@
                   <%if(sessao1 == 1){%>
 
                     <li class="nav-item d-flex" id="linkPerfil">
-                      <img class="img img-fluid" src="/img/icons/avatar.png" id="imagemPerfil" alt="">
-                      <a class="nav-link" href="/perfil/usuario"><%= nomeUsuarioSession %></a>
+                      <img class="img img-fluid" src="<%=usuario.imagemUsuario%>" id="imagemPerfil" alt="">
+
+                      <a class="nav-link" href="/perfil/usuario"><%= usuario.nomeUsuario %></a>
                     </li>
                         
                        

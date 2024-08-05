@@ -4,9 +4,10 @@ const bodyParser = require("body-parser")
 const session = require("express-session")
 var router = require("./routes/routes")
 
+
 var PagesRouter = require("./routes/PagesRouter")
 
-const connection = require("./database/database")
+var UsuariosController = require("./controler/UsuariosController")
 
 
 // view engine (para utilizar o ejs)
@@ -53,27 +54,7 @@ const $ = jQuery(dom.window);
 
 
 
-app.get("/" , (req,res) =>{
-      /* req.session.user = {
-        id: 1,
-        email: "vivicogamerbr2@gmail.com",
-        nome: "Gazeta"
-    }    */      
-    const sessao = req.session.user
-    var sessao1
-    if(sessao == undefined){
-        sessao1 = 0 
-        res.render("home.ejs", {sessao1:sessao1})
-
-    }else if(sessao != undefined){
-        const nomeUsuarioSession = req.session.user.nome
-       
-        sessao1 = 1
-        res.render("home.ejs", {nomeUsuarioSession: nomeUsuarioSession, sessao1:sessao1})
-
-    }
-
-})
+app.get("/", UsuariosController.carregaHome)
 
 
 app.listen(8080, () =>{

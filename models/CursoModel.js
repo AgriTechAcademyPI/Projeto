@@ -318,6 +318,7 @@ class Curso{
                              "aulas.id as idAula",
                              "aulas_concluidas.id as idAulaConcluida",
                              "aulas_concluidas.concluida",
+                             "cursos.titulo as tituloCurso "
                             ])
                     .table("aulas")
                     .leftJoin("cursos", "cursos.id", "aulas.idCurso")

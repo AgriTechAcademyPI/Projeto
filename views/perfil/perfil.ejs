@@ -26,21 +26,21 @@
                     <ul class="navbar-nav">
                         
                         
-                        <%if(usuario != undefined){%>
+                        <%if(ehInstrutor == 1){%>
                             <li class="nav-item">
-                                <a class="nav-link" href="/cadastro/curso">Cadastrar Curso</a>
+                                <a class="nav-link" href="/gerenciar/cursos">Gerenciar Meus Cursos</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link" href="/gerenciar/cursos">Gerenciar meus cursos</a>
+                                <a class="nav-link" href="/meu-aprendizado">Meu Aprendizado</a>
                             </li>
-                        <%}else{%>
+                        <%}else if(ehInstrutor == 0){%>
                             <li class="nav-item ">
-                                <a class="nav-link" href="/cadastro/instrutor">Tornar-se Instrutor</a>
+                                <a class="nav-link" href="/meu-aprendizado">Meu Aprendizado</a>
                             </li>
                             
                             <li class="nav-item">
-                                <a class="nav-link" href="/cadastro/curso">Cadastrar Curso</a>
+                                <a class="nav-link" href="/">Explorar Cursos</a>
                             </li>
                         <%}%>
                            
@@ -204,6 +204,7 @@
         </section>
     </div>
 
+    <%- include('../partials/footer.ejs'); %>
 
 
 

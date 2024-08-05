@@ -27,20 +27,40 @@
             <div class="collapse navbar-collapse " id="navbarNav">
                 <ul class="navbar-nav">
                     
+                    <%if(sessao == 0){%>
                     <li class="nav-item">
-                        <a class="nav-link" href="/cadastro/instrutor">Tornar-se Instrutor</a>
+                        <a class="nav-link" href="/cadastro">Tornar-se Aluno</a>
                     </li>
+                    <% }else if(sessao == 1){ %>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/meu-aprendizado">Meu Aprendizado</a>
+                        </li>
+
+                        <% if (ehInstrutor == 1){ %>
+
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/gerenciar/cursos">Gerenciar Cursos</a>
+                        </li>
+
+                       <% }else{ %>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/cadastro/instrutor">Tornar-se Instrutor</a>
+                        </li>
+                       <% } %>
+
+                   <% } %>
                     
-                    <li class="nav-item ">
-                        <a class="nav-link" href="/meu-aprendizado">Meu Aprendizado</a>
-                    </li>
+
                 
                     <li class="nav-item">
                         <a class="nav-link" href="/cursos">Explorar Cursos</a>
                     </li>
+
                     <%if(sessao == 1){%>
                         <li class="nav-item d-flex" id="linkPerfil">
-                          <img class="img img-fluid" src="<%=usuario.imagemUsuario%>>" id="imagemPerfil" alt="">
+                          <img class="img img-fluid" src="<%=usuario.imagemUsuario%>" id="imagemPerfil" alt="">
+
                           <a class="nav-link" href="/perfil"><%= usuario.nomeUsuario %></a>
                         </li>
                             

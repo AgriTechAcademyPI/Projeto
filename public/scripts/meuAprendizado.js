@@ -174,7 +174,7 @@ const showSuggestions = (list) => {
     listData = `<li>${userValue}</li>`;
   } else {
     listData = list.join('');
-  }
+  } 
   suggBox.innerHTML = listData;
 };
 
@@ -184,6 +184,8 @@ $("#botaoBuscar").click(function(){
     const categoria = $("#selectCategorias").val()
     const progresso = $("#selectProgresso").val()
     const instrutor = $("#selectInstrutores").val()
+
+    console.log(progresso)
 
 
     let url = '/meuAprendizado/filtro';
