@@ -35,7 +35,6 @@ const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const jQuery = require('jquery');
 
-// Simule um ambiente de navegador carregando um documento HTML
 const dom = new JSDOM(`
 <!DOCTYPE html>
 <html>
@@ -49,7 +48,6 @@ const dom = new JSDOM(`
 </html>
 `);
 
-// Use jQuery no ambiente jsdom
 const $ = jQuery(dom.window);
 
 

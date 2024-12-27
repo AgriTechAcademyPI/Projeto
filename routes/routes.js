@@ -34,7 +34,6 @@ router.get("/categorias", CategoriasController.todasCategorias)
 
 
 /* rotas cursos */
-
 router.get("/informacoes-curso/:idCurso", CursoController.informacoesCurso)
 router.post("/cadastrar/curso", CursoController.cadastrarCurso)
 router.get("/gerenciar/cursos", CursoController.exibirGerenciarMeusCursos)

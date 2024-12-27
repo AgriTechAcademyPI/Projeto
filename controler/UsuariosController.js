@@ -113,11 +113,11 @@ class UsuariosController{
     
     async carregaHome(req, res){
         try {
-             req.session.user = {
+             /* req.session.user = {
                 id: 1,
                 email: "vivicogamerbr2@gmail.com",
                 nome: "Gazeta"
-            }           
+            }       */     
             const sessao = req.session.user
             var sessao1
             if(sessao == undefined){

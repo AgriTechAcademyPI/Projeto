@@ -51,13 +51,13 @@ class CursoController{
                         var cursosIguais = await Curso.verificaCursoExistente(tituloCurso)
 
                             if(cursosIguais.cursosContagem > 0){
-                                return { status: false, mensagem: "Um curso com o nome " + tituloCurso + " já existe." };
+                                return { status: false, mensagem: "Um curso com o nome " + tituloCurso + " já existe." }
                             }
                        
                         return { status: true };
 
                     } catch (error) {
-                        return { status: false, mensagem: error.message };
+                        return { status: false, mensagem: error.message }
                     }
                 }
 

@@ -122,7 +122,19 @@ class PerfilController{
           if(result.status){ 
             res.status(200).send("Imagem de perfil alterada com sucesso.");
           }else{
-            res.status(403).send("Houve um erro ao alterar a imagem de perfil.");
+
+
+
+
+
+
+
+
+
+
+
+
+
           }
       }else{
         res.status(406).send("Houve um erro ao alterar a imagem de perfil. Usuário não encontrado");
